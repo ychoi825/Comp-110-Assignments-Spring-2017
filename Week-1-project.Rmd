@@ -1,6 +1,7 @@
 # Week 1 Project  
 
-## Your name should appear here!
+#### Your name should appear here!
+# Diana Yunjae Choi
 
 <!-- leave this material as is -->
 Compiled on `r date()`.
@@ -11,3 +12,11 @@ library(DataComputing)
 <!-- put your content after this line -->
 
 Here is my content!
+A Part of My Mom's Life
+
+* My mother was born in 1967.
+* She majored in Nutrition and Health for undergrad.
+* She taught piano as a college student.
+* Her parents went through the [Korean War](https://en.wikipedia.org/wiki/Korean_War)
+
+![A picture](https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Korean_War_Montage_2.png/450px-Korean_War_Montage_2.png)

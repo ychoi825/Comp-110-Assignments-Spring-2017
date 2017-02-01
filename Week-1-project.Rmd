@@ -1,7 +1,5 @@
 # Week 1 Project  
-
-#### Your name should appear here!
-# Diana Yunjae Choi
+#### Diana Yunjae Choi
 
 <!-- leave this material as is -->
 Compiled on `r date()`.

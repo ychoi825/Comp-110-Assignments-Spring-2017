@@ -2,18 +2,6 @@
 
 ## Yunjae Choi
 
-
-
-Additional QUESTION!!!
-
-1. how to get rid of data table within the Knit file
-2. seems like I'm missing some packages. Knit doesn't always work.
-3. loading data vs. naming data
-4. how to make the lines change when knitted
-
-
-
-
 <!-- leave this material as is -->
 Compiled on `r date()`.
 
@@ -24,11 +12,12 @@ library(DataComputing)
 
 
 
-### 1.1, 1.2, 1.4, 1.5 - DONE
+### 1.1, 1.2, 1.4, 1.5
 
 
 
 1.1
+
 a) 3
 b) 2
 c) 1
@@ -38,33 +27,40 @@ e) 2
 
 
 1.2
+
 The table is not "tidy" in that the cases within each of the variables are not in the same format. They have to be in a uniform format in order for R to do operations on our commands. For example, all names can be in one form: "Last name, First name," or "First name Last name," but not both.
 
 
 1.4
+
 1. What are the variables in each table?
-  Data Table A: Year, Algeria, Brazil, Columbia
-  Data Table B: Country, Y2000, Y2001
-  Data Table C: Country, Year, Value
+
+  * Data Table A: Year, Algeria, Brazil, Columbia
+  * Data Table B: Country, Y2000, Y2001
+  * Data Table C: Country, Year, Value
+  
 2. What is the meaning of a case for each table?
-  Data Table A: A year
-  Data Table B: A country
-  Data Table C: A country in a year
+
+  * Data Table A: A year
+  * Data Table B: A country
+  * Data Table C: A country in a year
 
 
 
 1.5
+
 1. How many variables are there? 8 
 2. What do the cases represent? Airport names in FAA airport code
 3. For each variable, make a reasonable guess about whether the values will be numerical or quantitative.
-faa - categorical
-name - categorical
-lat - quantitative
-lon - quantitative
-alt - quantitative
-tz - quantitative
-dst - categorical
-tzone - categorical
+
+  * faa - categorical
+  * name - categorical
+  * lat - quantitative
+  * lon - quantitative
+  * alt - quantitative
+  * tz - quantitative
+  * dst - categorical
+  * tzone - categorical
 ```{r}
 # install.packages("nycflights13")
 # library("nycflights13")
@@ -80,6 +76,7 @@ head(airports)
 ### 2.2, 2.3, 2.4, 2.6, 2.7, 2.8, 2.9, 2.10 - DONE but one QUESTION
 
 2.2
+
 file name
 
 
@@ -95,11 +92,13 @@ The Current Population Survey (CPS) is used to supplement census information bet
 
 
 2.4
+
 the data name cannot be the same as the package name. A package contains a number of data. The package here should be where NHANES comes from.
 
 
 
 2.6
+
 1. OK
 2. Wrong
 3. Wrong
@@ -113,6 +112,7 @@ the data name cannot be the same as the package name. A package contains a numbe
 
 
 2.7
+
 Installing done above.
 ```{r}
 data(flights, package = "nycflights13")
@@ -122,11 +122,14 @@ nrow(flights)
 str(flights)
 # class(flights$time_hour) QUESTION!!!
 ```
+
 1. How many variables are there? 19
 2. How many cases are there? 336776
 3. What is the meaning of a case? ("Meaning" refers to the kind of entity, for instance, "airport" or "airline" or "date". Hint: the case in flights is not any of these things.)
 On-time data for all flights that departed NYC (i.e. JFK, LGA or EWR) in 2013.
 4. For each variable, is the variable quantitative or categorical?
+
+
   All "int" and "num" are quantitative and "chr" are categorical.
    $ year          : int  2013 2013 2013 2013 2013 2013 2013 2013 2013 2013 ...
    $ month         : int  1 1 1 1 1 1 1 1 1 1 ...
@@ -147,11 +150,14 @@ On-time data for all flights that departed NYC (i.e. JFK, LGA or EWR) in 2013.
    $ hour          : num  5 5 5 5 6 5 6 6 6 6 ...
    $ minute        : num  15 29 40 45 0 58 0 0 0 0 ...
    $ time_hour     : POSIXct, format: "2013-01-01 05:00:00" "2013-01-01 05:00:00" "2013-01-01 05:00:00" "2013-01-01 
+
+
 5. For the variables air_time and distance, what are the units? minutes
 
 
 
 2.8
+
 "-->" indicates to what it should be changed.
 
 a. ralph <- sqrt 10               3
@@ -163,6 +169,7 @@ e. ralph5 <- date()               5
 
 
 2.9
+
 1. "." and "_"
 2. All of them
 
@@ -204,7 +211,9 @@ levels(RegisteredVoters$party)
 
 ### 3.1, 3.2, 3.3, 3.4, 3.5, 3.6
 
-3.1 - QUESTION!!! not sure what it's asking for
+3.1
+
+- QUESTION!!! not sure what it's asking for
 data frame (fireplace)
 ```{r}
 fireplace <- data.frame(c(1,2,3,4,5), row.names = 1,4,36)
@@ -228,6 +237,7 @@ a variable (d)
 
 
 3.2 QUESTION!!!
+
 "Result <- %>% filter(BabyNames, name=="Prince")" is illegitimate because there's no data frame that the filter function is being applied to. It should be
 ```{r}
 library("magrittr")
@@ -237,6 +247,7 @@ Result <-
 ```
 
 3.3
+
 A package contains many data set. Therefore, NHANES cannot be the package for this particular data set, "NHANES"
 ```{r}
 # help(NHANES, package <- "NHANES")
@@ -258,25 +269,26 @@ Princes %>%
   geom_point(aes(color = sex)) +
   geom_vline(xintercept = 1978)
 ```
+
 1. b
 2. a
 3. c
 4. a
 5. a
-6.c
-7.c
-8.a
-9.d
-10.a
-11.c?
-12.a
-13.a
-14.c
-15.c
-16.a
-17.d
-18.a
-19.d
+6. c
+7. c
+8. a
+9. d
+10. a
+11. c?
+12. a
+13. a
+14. c
+15. c
+16. a
+17. d
+18. a
+19. d
 
 
 3.5
@@ -285,6 +297,7 @@ data(msleep, package = "ggplot2")
 # help(msleep)
 nrow(msleep)
 ```
+
 1. brainwt. brain weight in kilograms
 2. 83
 3. number of observations in the data
@@ -292,6 +305,7 @@ nrow(msleep)
 
 
 3.6
+
 d
 QUESTION!!! Sum and count are interchangeable?
 
@@ -302,36 +316,73 @@ QUESTION!!! Sum and count are interchangeable?
 
 *one*
 
+italics
+
+
 
 **two**
+
 bold face
 
+
+
 * three
+
 bullet point
 
+
 # Four
+
 biggest size of the headings
 
+
 `five`
+
 it would just print out 'five'
 
+
 ## Six
+
 "Six" that is of a smaller size than the biggest size "#"
+
+
 
 [seven](http://tiny.cc/dcf/index.html)
 text "seven" that takes us to the following link
 
 
 
+4.2
+
+1. not correct "`" mark
+1. not correct "`" mark
+1. need 3 "`" marks each in the beginnning and end
+1. need parallel marks (in two lines)
+1. need 3 "`" marks each in the beginnning and end
 
 
+4.3
+
+### An Introduction
+Arithmetic is *easy*! For instance
+```{r}
+3 + 2
+```
+
+The above heading will be in bigger font than the rest. The text "easy" will be italicized. 3 + 2 will appear in the calculated form 5.
 
 
+4.4
+
+1. a possible URL
+1. a possible file
+1. neither
+1. a possible URL
+1. neither
+1. a possible file
+
+QUESTION!!! Does a file have to start with http too?
 
 
-
-
-
-
-
-
+4.5
+Done on a separate file Birds.Rmd

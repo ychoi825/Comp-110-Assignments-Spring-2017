@@ -1,0 +1,130 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+1. Tidy Data
+2. Computing with R
+3. R Command Patterns
+4.
+
+
+Notes from Chapter 2
+```{r}
+install.packages("devtools")
+install.packages("istring")
+devtools::install_github("DataComputing/DataComputing")
+library(dplyr)
+library(ggplot2)
+library(DataComputing)
+
+data(package = "DataComputing")
+data(data = NCHS, package = "DataComputing")
+View(NCHS)
+help(NCHS)
+
+SmallNCSH = sample_n(NCHS, 100)
+```
+
+
+```{r}
+Motors <- read.file("http://tiny.cc/mosaic/engines.csv")
+```
+
+
+Notes from Chapter 3
+```{r}
+install.packages("magrittr")
+install.packages("thePackage")
+install.packages("plyr")
+library("magrittr")
+library("plyr")
+library("DataComputing")
+BabyNames <- data(data = BabyNames, package = "DataComputing")
+View(BabyNames)
+QUESTION!!!
+
+BabyNames_Arjun <- BabyNames %>%
+  filter(name == "Arjun") %>%
+  summarize(total = sum(count))
+BabyNames %>% nrow() # how many cases in the table
+BabyNames %>% names() # the names of the variables
+BabyNames %>% head(3)
+BabyNames %>% str()
+BabyNames %>% glimpse()
+
+BabyNames1998 <- BabyNames %>%
+    filter(year == 1998)
+
+BabyNames_sex <- BabyNames %>%
+group_by(sex) %>%
+summarise(total = sum(count))
+
+Princes <-
+    BabyNames %>%
+    filter(name == "Prince") %>%
+    group_by(year, sex) %>%
+    summarise(yearlyTotal = sum(count))
+
+# QUESTION!!! doesn't work
+Princes2 <-
+  summarise(
+    group_by(
+      filter(BabyNames, name == "Prince"),
+        year, sex),
+      yearlyTotal = sum(count))
+
+
+# Now graph it!
+Princes %>%
+    ggplot(aes(x = year, y = yearlyTotal)) +
+    geom_point(aes(color = sex)) +
+    geom_vline(xintercept = 1978) +
+    ylim(0,640) + xlim(1880,2015)
+```
+
+```{r}
+data_file_name <- "tiny.cc/mosaic/engines.csv"
+age_cutoff <- 21
+```
+
+
+
+
+Notes from Chapter 4
+```{r}
+# file.choose()
+data(CPS85, package="mosaicData")
+Saltpeter <- read.file("http://tiny.cc/DCF/saltpeter.csv")
+
+```
+
+
+
+
+```{r}
+Saltpeter <-
+  read.file("saltpeter.csv")
+
+Saltpeter %>%
+  group_by(season,method) %>%
+  summarise(prod = sum(barrels) / n())
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

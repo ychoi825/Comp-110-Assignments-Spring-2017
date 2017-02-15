@@ -1,13 +1,42 @@
 # Week 1 Project  
 
-## Your name should appear here!
+#### Diana Yunjae Choi
 
 <!-- leave this material as is -->
 Compiled on `r date()`.
 
 ```{r include = FALSE}
-library(DataComputing)
+# install.packages("DataComputing")
+# install.packages("contrib.url")
+library("DataComputing")
 ```
 <!-- put your content after this line -->
 
 Here is my content!
+A Part of My Mom's Life
+
+* My mother was born in 1967.
+* She majored in Nutrition and Health for undergrad.
+* She taught piano as a college student.
+* Her parents went through the [Korean War](https://en.wikipedia.org/wiki/Korean_War)
+
+![A picture](https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Korean_War_Montage_2.png/450px-Korean_War_Montage_2.png)
+
+
+This is another section. Two sections are required.
+Her Childhood
+
+1. When my mom was young, she LOVED her mom.
+1. She also loved eating noodles.
+1. She was always very creative (and still is) with making food.
+
+
+```{r}
+my_number = sin(sqrt(pi))
+```
+
+
+```{r}
+secondchunk = (asin(my_number))^2
+```
+

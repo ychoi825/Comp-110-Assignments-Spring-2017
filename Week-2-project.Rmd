@@ -1,6 +1,6 @@
 # Week 2 Project
 
-## Your name should appear here!
+## Yunjae Choi
 
 <!-- leave this material as is -->
 Compiled on `r date()`.
@@ -10,4 +10,32 @@ library(DataComputing)
 ```
 <!-- put your content after this line -->
 
-Here is my content!
+
+```{r}
+# download.file("http://tiny.cc/dcf/Library-small.rda",
+#               dest="Library-small.rda")
+```
+
+
+```{r}
+load("Library-small.rda")
+```
+
+
+
+
+## Basics
+### Grouping by Current Status
+```{r}
+Inv %>%
+  group_by(Current.Status) %>%
+  tally()
+```
+
+### Grouping by Issued Count
+```{r}
+Inv %>%
+  group_by(Issued.Count) %>%
+  tally()
+```
+

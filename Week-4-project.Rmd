@@ -1,6 +1,7 @@
 # Week 4 Project
 
-## Your name should appear here!
+## Yunjae Choi
+
 
 <!-- leave this material as is -->
 Compiled on `r date()`.
@@ -10,4 +11,189 @@ library(DataComputing)
 ```
 <!-- put your content after this line -->
 
-Here is my content!
+
+# Project 4
+
+The data table Birthdays in the mosaicData package gives the number of births recorded on each day of the year in each state from 1969 to 1988. (It would be nice to have more recent data, but I don’t have them at hand.) For this activity, we’ll work with data aggregated across the states.
+
+1. Create a new data table, DailyBirths, that adds up all the births for each day across all the states. Plot out daily births vs date.
+
+```{r}
+data(Birthdays, package = "mosaicData")
+Birthdays %>%
+  group_by(date) %>%
+  summarise(total = sum(births)) %>%
+  ggplot(aes(x = date, y = total)) + geom_point()
+```
+
+ 
+The date variable in Birthdays prints out in the conventional, human-readable way. But it is actually in a format (called POSIX date format) that automatically respects the order of time. The lubridate package contains helpful functions that will extract various information about any date. Here are some you might find useful:
+
+
+
+
+
+To examine seasonality in birth rates, look at the number of births aggregated over all the years by
+
+each week
+each month
+each Julian day
+
+library("lubridate")
+year(Birthdays$date)
+month(Birthdays$date)
+week(Birthdays$date)
+yday(date)  # gives the day of the year as a number 1-366. This is often called the “Julian day.”
+mday(date)  # gives the day of the month as a number 1-31
+wday(date)  # gives the weekday (e.g. Monday, Tuesday, …). Use the optional argument label=TRUE to have the weekday spelled out rather than given as a number 1-7.
+
+```{r}
+library("lubridate")
+
+Birthdays %>%
+  group_by(wday) %>%
+  summarise(wkbd = sum(births))
+
+Birthdays %>%
+  group_by(month) %>%
+  summarise(wkbd = sum(births))
+
+Birthdays %>%
+  group_by(yday(date)) %>%
+  summarise(wkbd = sum(births))
+```
+
+
+
+
+To examine patterns within the week, look at the number of births by day of the week.
+
+```{r}
+Birthdays %>%
+  group_by(wday) %>%
+  summarise(total = sum(births)) %>%
+  ggplot(aes(x = wday, y = total)) + geom_point()
+
+```
+
+
+
+Pick a two-year span of the Birthdays that falls in the 1980s, say, 1980/1981. Extract out the data just in this interval, calling it MyTwoYears. (Hint: filter(), year()). Plot out the births in this two-year span day by day. Color each date according to its day of the week. Explain the pattern that you see.
+
+```{r}
+MyTwoYears <- Birthdays %>%
+  filter(year(date) %in% c(1980,1981)) %>%
+  group_by(date, wday) %>%
+  summarise(wkbd = sum(births)) %>%
+  ggplot(aes(x = date, y = wkbd)) + geom_point(aes(color = wday)) 
+MyTwoYears
+```
+
+
+* Plotting out the holidays (Thanks Giving) - blue dots in the bottom
+* lower on the weekends because sea sections are scheduled usually
+* summer peaks / winter troughs 
+
+
+
+
+Births and holidays
+A few days each year don’t follow the pattern in (4). We’re going to examine the hypothesis that these are holidays. You can find a data set listing US federal holidays at http://tiny.cc/dcf/US-Holidays.csv. Read it in as follows:11 The point of the lubridate::dmy() function is to convert the character-string date stored in the CSV to a POSIX date-number.
+
+```{r}
+Holidays <- read.csv("http://tiny.cc/dcf/US-Holidays.csv") %>%
+  mutate(date = as.POSIXct(lubridate::dmy(date)))
+```
+
+```{r}
+hn <- Holidays %>% 
+  mutate(date = as.POSIXct(lubridate::dmy(date)))
+
+hn <- Holidays %>% 
+  filter(year(date) %in% c(1980,1981))
+
+
+MyTwoYears <- Birthdays %>%
+  filter(year(date) %in% c(1980,1981)) %>%
+  group_by(date, wday) %>%
+  summarise(total = sum(births)) %>%
+  ggplot(aes(x = date, y = total)) + geom_line(aes(color = wday)) + geom_vline(data = hn, aes(xintercept = as.numeric(date))) + geom_text(data = hn, aes(x=date,label = holiday),y=9000,angle=30)
+
+MyTwoYears
+```
+
+
+
+
+### In-Class Notes
+
+```{r}
+data(WorldCities, package = "DataComputing")
+select <- WorldCities %>% 
+  select(name)
+```
+
+
+#### Some Data Verbs
+
+select()
+```{r}
+select <- WorldCities %>% 
+  select(name)
+```
+
+mutate()
+```{r}
+m <- WorldCities %>% 
+  mutate(spop = sqrt(population))
+```
+
+select() + mutate()
+```{r}
+ms <- WorldCities %>%
+  mutate(spop = sqrt(population)) %>% 
+  select(name)
+```
+
+transmute()
+```{r}
+WorldCities %>% 
+  transmute(spop = sqrt(population)) -> transm
+```
+
+grepl()
+```{r}
+vowel <- BabyNames %>% 
+  mutate(with_vowel = grepl("^[AEIOU]", name))
+```
+
+Example) vowel12
+```{r}
+vowel2 <- vowel %>% 
+  group_by(year) %>%
+  summarise(total_w_vowel = sum(with_vowel), total_names = n()) %>% 
+  mutate(fraction = total_w_vowel / total_names) %>% 
+  select(year, fraction)
+```
+
+
+### Data Wrangling Vocabulary
+
+1. Target table
+1. Two questions to ask
+
+    + Are the cases different?
+    + Are the variables different?
+
+
+### Functions of Functions
+
+1. Data Verb takes as an input a data table -> data table
+1. Reduction Verbs takes as an input variable -> number
+1. Transformation Verb takes as an input variable -> variable
+
+    + Rank Transformations: "find the largest...", "Find the three largest", "Find the smallest within each group"
+    + Lead and lag transformations
+    + Times and Dates: transform text dates into an R type with numerical properties
+    + Lead and lag transformations
+    + Lead and lag transformations

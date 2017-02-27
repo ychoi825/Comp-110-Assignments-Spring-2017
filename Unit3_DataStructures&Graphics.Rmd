@@ -1,0 +1,17 @@
+---
+title: "Unit3_DataStructures&Graphics"
+author: "Yunjae"
+date: "February 14, 2017"
+output: html_document
+---
+
+```{r}
+library(statisticalModeling)
+library(ggplot2)
+library(DataComputing)
+data(CountryData, pacakge = "DataComputing")
+gf_point(death ~ life + alpha:GDPcapita, data = CountryData, verbose = TRUE)
+ggplot(data = CountryData, aes(y = death, x = life, alpha = GDPcapita)) +
+ geom_point()
+```
+

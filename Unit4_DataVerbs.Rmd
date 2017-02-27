@@ -1,0 +1,39 @@
+---
+title: "Unit4_DataVerbs"
+author: "Yunjae"
+date: "February 14, 2017"
+output: html_document
+---
+
+
+# Chapter 8
+
+Glyphs are created by functions starting with geom_. There are many kinds of glyphs, so there are many geom_ functions: geom_point(), geom_line(), geom_bar(), geom_boxplot(), geom_density(), and so on.
+
+
+## Make a dataset of only Princes
+
+```{r}
+Princes <-
+  BabyNames %>%
+  filter(name == "Prince")
+```
+
+## Make it Count vs. Year
+
+!!!
+```{r}
+the_frame <- ggplot(data = Princes,
+                    aes(x = year, y = count))
+layer1 <- geom_point(data = Princes, 
+                     aes(shape = sex))
+layer2 <- geom_vline(year = 1978)
+the_frame + layer1 + layer2
+```
+```{r}
+Princes %>%
+ggplot(aes(x = year, y = count, shape = sex)) +
+  geom_point() +
+  geom_vline(x = 1978)
+```
+

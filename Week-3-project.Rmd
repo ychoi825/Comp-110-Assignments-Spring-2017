@@ -1,6 +1,6 @@
 # Week 3 Project
 
-## Your name should appear here! 
+## Yunjae Choi
 
 <!-- leave this material as is -->
 Compiled on `r date()`.
@@ -10,73 +10,62 @@ library(DataComputing)
 ```
 <!-- put your content after this line -->
 
+&nbsp;
+
+#### The Basics
 
 Considering each of the above graphics in turn, figure out:
 
-
-
 * What mode of graphic is it? (e.g. density plot, scatter plot, bar plot, …)
-
-  density plot
-
-
-* What variables from the respective data tables are involved?
-
-  bmi, sex, pregnancy (yes/ no)
-
-
-* What role each of those variables plays in the graphic?
-
-  pregnancy - divided into two layers
-  sex - using color codes (aesthetics)
-  density plot of bmi depending on sex and preg
+    + density plot  
+&nbsp;
   
+* What variables from the respective data tables are involved?  
+    + bmi, sex, pregnancy (yes/ no)  
+&nbsp;
   
-* In Figure 2, why is there no data variable being used for the yy-axis?
-
-  same as the one in the left
+* What role each of those variables plays in the graphic?  
+    + pregnancy - divided into two layers
+    + sex - using color codes (aesthetics)
+    + density plot of bmi depending on sex and preg  
+&nbsp;
   
+* In Figure 2, why is there no data variable being used for the $y$-axis?  
+    + same as the one in the left  
+&nbsp;
+&nbsp;
 
+#### Making Plots
 
 ```{r}
 library(mosaicData)
 library(ggplot2)
-# View(CPS85)
-View(NCHS)
-fit <-lm(wage ~ height, data=women)
-ggplot(data = CPS85, aes(x = exper, y = wage, color = "red")) + geom_point() + facet_wrap( ~ sex)
-                                                                        
+```
+
+
+```{r}
+ggplot(data = CPS85, aes(x = exper, y = wage, color = "red")) + geom_point() + facet_wrap( ~ sex)                  
 ggplot(data = NCHS, aes(x = weight)) + geom_density(aes(color = "red")) + facet_wrap(~ sex)
 ```
 
-### Just a practice
-```{r}
-diamonds %>% 
-  group_by( color , clarity ) %>% 
-  summarise( price = mean(price), ncases = n()) %>% 
-  arrange(desc( price )) %>% 
-  head( 1 )
-```
 
-### 1.
 
-Which color diamonds seem to be largest on average (in terms of carats)?
+#### Diamonds
 
-J
+1. Which color diamonds seem to be largest on average (in terms of carats)?  
+    * J is the largest on average
 
 ```{r}
 diamonds %>% 
   group_by( color ) %>% 
-  summarise(nmean = mean(carat)) %>%
-  arrange(desc(nmean)) %>% 
+  summarise(carat_size = mean(carat)) %>%
+  arrange(desc(carat_size)) %>% 
   head( 10 )
 ```
 
 
-
-Which clarity of diamonds has the largest average “table” per carat?
-
-Il
+2. Which clarity of diamonds has the largest average “table” per carat?  
+    * Il
 
 ```{r}
 diamonds %>% 
@@ -87,12 +76,12 @@ diamonds %>%
 ```
 
 
-## Voting
+
+#### Voting
 
 How many cases are there?
 
 ```{r}
-View(Minneapolis2013)
 Minneapolis2013 %>% 
   summarise(nsum = n())
 ```
@@ -100,7 +89,6 @@ Minneapolis2013 %>%
 
 Who were the top 5 candidates in the Second vote selections?
 
-!!!
 ```{r}
 Minneapolis2013 %>% 
   group_by(Second) %>%
@@ -111,11 +99,11 @@ Minneapolis2013 %>%
 
 
 
-How many ballots are marked “undervote” in First choice selections?
-Second choice selections?
-Third choice selections?
 
-tally vs. count
+How many ballots are marked “undervote” 
+
+
+in First choice selections?
 
 ```{r}
 Minneapolis2013 %>% 
@@ -124,6 +112,8 @@ Minneapolis2013 %>%
 ```
 
 
+Second choice selections?
+
 ```{r}
 Minneapolis2013 %>% 
   filter(Second == "undervote") %>%
@@ -131,12 +121,13 @@ Minneapolis2013 %>%
 ```
 
 
+Third choice selections?
+
 ```{r}
 Minneapolis2013 %>% 
   filter(Third == "undervote") %>%
   summarise(nsum = n())
 ```
-
 
 
 
@@ -150,9 +141,6 @@ Minneapolis2013 %>%
   arrange(desc(nsum)) %>%
   head(3)
 ```
-
-
-
 
 
 

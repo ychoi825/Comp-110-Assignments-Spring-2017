@@ -1,13 +1,302 @@
 # Week 3 Short Answer Questions
 
-## Your name should appear here!
+## Yunjae Choi
 
 <!-- leave this material as is -->
 Compiled on `r date()`.
 
 ```{r include = FALSE}
 library(DataComputing)
+library(mosaicData)
 ```
 <!-- put your content after this line -->
 
-Here is my content!
+&nbsp;    
+&nbsp;    
+
+### Chapter 5
+    
+##### Problem 5.1
+```{r}
+ggplot(data=CPS85,
+       aes(x=sex, y=wage, fill=married)) + 
+  geom_bar(stat='identity', position='dodge', width=.9) + 
+  facet_wrap(~race, ncol=3)
+```
+
+##### Problem 5.2
+```{r}
+HappinessIndex %>%
+WorldMap(key="country", fill="corruption")
+```
+
+&nbsp;    
+&nbsp;    
+
+### Chapter 6
+
+##### Problem 6.5    
+
+    b
+
+##### Problem 6.6      
+
+    d
+
+##### Problem 6.7    
+
+    c
+
+##### Problem 6.8
+```{r}
+Small <-
+NCHS %>%
+  sample_n(size=5000)
+Small <- na.omit(Small)
+Small$smoker <- factor(Small$smoker,labels=c("no","yes"))
+ggplot(data=Small,aes(x=bmi,y=weight))+geom_point()+aes(colour=smoker)
+```
+
+&nbsp;    
+&nbsp;    
+
+### Chapter 7
+
+##### Problem 7.1
+
+a. Find the average of one of the variables.
+
+        summarise() 
+
+b. Add a new column that is the ratio between two variables.
+
+        mutate() 
+
+c. Sort the cases in descending order of a variable.
+
+        arrange() 
+
+d. Create a new data table that includes only those cases that meet a criterion.
+
+        filter() 
+
+e. Form a data table with three categorical variables A, B, & C, and a quantitative variable X, produce an output that has the same cases but only the variables A and X.
+
+        select() 
+
+
+f. From a data table with three categorical variables A, B, & C, and a quantitative variable X, produce an output that has a separate case for each of the combinations of the levels of A and B. (Hint: It might be easier to see the answer if the problem statement added, “and gives the maximum value of X over all the cases that have a given combination of A and B.” )
+
+        group_by() and summarise()
+
+&nbsp;
+
+##### Problem 7.4
+
+a. What's Wrong:    
+        
+        Quotation marks around "First"; it's a variable and the data is from Minneapolis2013
+    
+    Should Be:    
+```{r}
+Minneapolis2013 %>%
+  group_by(First) %>%
+  summarise(votesReceived = n())
+```
+
+&nbsp;
+
+b. What's Wrong:
+
+        Cannot have the assigned object name as the argument inside a function
+
+    Should Be: 
+```{r}
+Tmp <- group_by(BabyNames, year, sex) %>%
+  summarise(totalBirths = sum(count))
+Tmp
+```
+
+&nbsp;
+
+c. What's Wrong:
+
+        Cannot repeat data set
+
+    Should Be:
+```{r}
+Tmp <- group_by(BabyNames, year, sex) %>%
+  summarise(totalBirths = sum(count))
+Tmp
+```
+
+&nbsp;
+
+##### Problem 7.5
+
+a.
+```{r}
+tablea <- BabyNames %>%
+  arrange (sex, count) %>%
+  head(6)
+tablea
+```
+
+b.
+```{r}
+tableb <- BabyNames %>%
+  filter(sex == "F") %>%
+  head(6)
+tableb
+```
+
+c.
+```{r}
+tablec <- BabyNames %>%
+  filter(sex == "M", count > 10) %>%
+  head(6)
+tablec
+```
+
+d.
+```{r}
+tabled <- BabyNames %>%
+  summarise( total= sum(count) ) %>%
+  head(6)
+tabled
+```
+
+e. 
+```{r}
+tablee <- BabyNames %>%
+  select(name, count) %>%
+  head(6)
+tablee
+```
+
+&nbsp;
+
+##### Problem 7.7
+
+a. BabyNames is used twice.
+
+    Should Be:
+```{r}
+BabyNames %>% 
+group_by(year, sex) %>%
+summarise(total = sum(count))
+```
+
+&nbsp;
+
+b. ZipGeography is a dataset, not an assignment name. There's no data referring to this object.
+
+    Should Be:
+```{r}
+ZipGeography %>%
+  group_by(State) %>%
+  summarise(pop = sum(Population))
+```
+
+&nbsp;
+
+c. assignment symbol used instead of a chaining syntax
+
+    Should Be:
+```{r}
+Minneapolis2013 %>%
+  group_by(First) %>%
+  summarise(voteReceived = n())
+```
+
+&nbsp;
+
+d. all order backward AND ">" should be used, not "<"
+
+    Should Be:
+```{r}
+Minneapolis2013 %>% group_by(First) %>% summarise(votesReceived = n())
+```
+
+&nbsp;
+
+##### Problem 7.11
+
+a. column headings will look like: 
+
+    1. two levels of sex
+    2. total counts for each sex
+    3. mean age of each group (sex)    
+    
+&nbsp;
+
+b. column headings will look like:  
+
+    1. All levels of diagnosis
+    2. total counts for each level of diagnosis
+    3. mean age of each level of diagnosis    
+    
+&nbsp;
+
+c. column headings will look like: 
+
+    1. the first two: two levels of sex, each divided by the levels of diagnosis
+    2. total counts of each group (sex) subdivided by diagnosis
+    3. mean age of for each group (sex) subdivided by diagnosis    
+    
+&nbsp;
+
+d. column headings will look like:  
+
+    1. the first two: all levels of age, each divided by the levels of diagnosis
+    2. total counts of each age subdivided by diagnosis
+    3. mean age of for each age subdivided by diagnosis    
+    
+&nbsp;
+
+e. column headings will look like: 
+
+    1. age
+    2. total counts for each age
+    3. mean age of the first column's age which is the same as age
+    
+&nbsp;
+
+##### Problem 7.12
+
+1. Count the number of cases in a data table.
+
+        nrow()
+
+
+2. List the names of the variables in a data table.
+
+        variable.names(data)
+        OR
+        names()
+
+3. For data tables in an R package, display the documentation (“codebook”) for the data table.
+
+        help(data)
+
+
+4. Load a package into your R session.
+
+        library(package)
+
+
+5. Mark a data table as grouped by one or more categorical variables.    
+
+        group_by()
+
+
+6. Add up, group-by-group, a quantitative variable in a data table.
+
+        summarise( quantVarHeading = sum(quantvar))
+
+
+
+
+
+
+

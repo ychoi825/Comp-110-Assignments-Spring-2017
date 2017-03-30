@@ -1,0 +1,246 @@
+---
+title: "Week-6-in-class-activity-notes"
+author: "Yunjae"
+date: "March 29, 2017"
+output: html_document
+---
+# **Week 6 Project**
+
+## Yunjae Choi
+
+# WARNING: individual project; put away for later
+
+<!-- leave this material as is -->
+Compiled on `r date()`.
+
+```{r include = FALSE}
+library(DataComputing)
+library(dplyr)
+library(igraph)
+library(tidyr)
+library(stats)
+library(base)
+library(ggplot2)
+library(mosaic)
+download.file("http://tiny.cc/dcf/MovieLens.rda", 
+              destfile = "MovieLens.rda")
+```
+<!-- put your content after this line -->
+
+&nbsp;
+
+##### _Loading Data_
+```{r}
+load("~/Comp-110-Assignments-Spring-2017/Data Sets/MovieLens.rda")
+```
+
+&nbsp;
+
+##### **_`MovieLens.rda` contains three data tables:_**
+
+* `Ratings` has the individual movie ratings and the time at which they were entered. It also includes an ID variable for both the user and the movie. 
+* `Movies` provides the name of the movie and information about genres. 
+* `Users` gives basic information about the person who made the rating.
+
+**Your task: Construct each of these graphics.**
+
+&nbsp;
+
+#### **_`Ratings` and `Users` Joined by `user_id`_**
+```{r}
+All <- left_join(Ratings, Users, by = "user_id")
+```
+
+#### **_`Ratings`, `Users`, `Movies` Joined by `user_id`and 'movie_id'_**
+```{r}
+All <- left_join(All, Movies, by = "movie_id")
+All
+```
+
+
+#### **_`Ratings` and `Users` Joined by `user_id`_**
+
+!!! Variable names like Film-Noir, Sci-Fi and Children's do not work
+!!! also don't know if this is necessary
+
+Movies[,6:23]
+
+```{r}
+names(Movies)
+# Genresmod <- 
+#   Movies %>%
+# #  select(movie_id, Movies[,6:23]) %>%
+#   gather(key = genre, value = bool, Movies[,6:23])
+# 
+# Genresmod
+```
+
+
+```{r}
+names(Movies)
+Genresmod <- 
+  Movies %>%
+#  select(movie_id, Movies[6:23]) %>%
+  gather(key = genre, value = bool, Action, Adventure, Animation, Comedy, Crime,Documentary, Drama, Fantasy, Horror, Musical, Mystery, Romance, Thriller, War, Western)
+
+Genresmod
+```
+
+&nbsp;
+
+### _Show the appeal of different genres to the different sexes_
+
+```{r}
+Result %>% 
+  ggplot(aes(x = year, y = count, color = name)) +
+  geom_point() +
+  ggtitle("Yearly Number of Janes and Mary") +
+  xlab("Year") + 
+  ylab("Count")
+```
+
+!!! how to make the genre variable fit into the graph
+```{r}
+names(All)
+All %>% ggplot(aes(x = mean(rating), y = genre, color = sex)) +
+         geom_errorbar() 
+```
+
+&nbsp;
+
+### _Which genres are related?_
+
+!!! where did first and second come from?
+```{r}
+co_occurance <- function(genres){
+  f <- function(x,y) {sum(x * y) / sum(x)}
+  M <- matrix(0, nrow = ncol(genres), ncol = ncol(genres))
+  for (first in 1:ncol(genres)) {
+    for (second in 1:ncol(genres)) {
+      M[first, second] <- f(genres[[first]], genres[[second]])
+    }
+  }
+  M <- as.data.frame(M)
+  names(M) <- names(genres)
+  M$genre <- names(genres)
+  M %>%
+    tidyr::gather(key = genre2, value = co_occur, -genre)
+}
+```
+
+```{r}
+Genres <- Movies[,6:23]
+```
+
+```{r}
+tmp <- cor(Genres) %>% as.data.frame(stringsAsFactors = FALSE)
+```
+
+```{r}
+tmp$genre <- row.names(tmp)
+```
+
+```{r}
+Genre_pairs <-
+  tmp %>% 
+  gather(key = genre2, value = correlation, -genre) %>%
+  filter(genre != genre2) %>%
+  group_by(genre) %>%
+  mutate(cor_sign = as.character(sign(correlation))) %>%
+  mutate(cor_size = abs(correlation))
+```
+
+```{r}
+Genre_co_occur <- co_occurance(Genres) %>%
+  filter(genre != genre2)
+```
+
+
+```{r}
+Genre_pairs %>%
+  ggplot(aes(x = genre2, y = genre)) + 
+  geom_point(aes(size = cor_size, color = cor_sign)) +
+  theme(axis.text.x  = element_text(angle=90, vjust=0.5))
+```
+
+
+```{r}
+Genre_co_occur %>%
+  ggplot(aes(x = genre2, y = genre)) +
+  geom_point(aes(size = co_occur)) +
+  theme(axis.text.x  = element_text(angle=90, vjust=0.5))
+```
+
+##### As a network
+```{r}
+Keep_pairs <- 
+  Genre_pairs %>%
+  filter(cor_size > 0.05, cor_sign == "1") %>%
+  filter(genre > genre2) 
+```
+
+```{r}
+Vertices <- Keep_pairs %>% 
+  edgesToVertices(from = genre, to = genre2) 
+```
+
+```{r}
+Edges <- 
+  Vertices %>%
+  edgesForPlotting(ID = ID, x, y, Edges = Keep_pairs, from = genre, to = genre2)
+```
+
+```{r}
+Vertices %>%
+  ggplot(aes(x = x, y = y)) + geom_point()+
+  geom_segment(data = Edges, 
+               aes(x = x, y = y, xend = xend, yend = yend, 
+                   color = correlation, size = correlation)) + 
+  theme_map() + 
+    geom_label(aes(label = ID), fill = "white") 
+```
+
+&nbsp;
+
+### _Who are the reviewers?_
+```{r}
+Users %>%
+  ggplot(aes(x = age)) + 
+  geom_density(aes(fill = occupation), 
+               color = NA, alpha = .7, position = "fill") + 
+  facet_wrap( ~ sex)
+```
+
+```{r}
+Users %>%
+  ggplot(aes(x = age)) + 
+  geom_density(aes(fill = sex), 
+               color = NA, alpha = .4, position = "fill")
+```
+
+```{r}
+Users %>%
+  group_by(occupation) %>%
+  tally() %>%
+  arrange(desc(n))
+```
+
+&nbsp;
+
+### _Ratings as people age_
+!!! genre not found
+```{r}
+All %>%
+  filter( genre != "unknown") %>%
+  ggplot(aes(x = age, color = sex, y = rating)) + 
+  geom_smooth() + 
+  facet_wrap( ~ genre, scales = "free")
+## `geom_smooth()` using method = 'gam'
+```
+
+```{r}
+All %>% 
+  ggplot(aes(x = age, color = sex, y = rating)) +
+  geom_smooth()
+## `geom_smooth()` using method = 'gam'
+```

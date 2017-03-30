@@ -1,0 +1,233 @@
+---
+title: '**Week 8: In Class Notes**'
+author: "Yunjae"
+date: "March 29, 2017"
+output: html_document
+---
+
+## Yunjae Choi
+
+<!-- leave this material as is -->
+Compiled on `r date()`.
+```{r include = FALSE}
+library(DataComputing)
+library(ggplot2)
+library(statisticalModeling)
+library(rpart)
+library(randomForest)
+library(stats4)
+library(cluster)
+```
+<!-- put your content after this line -->
+
+
+&nbsp;
+&nbsp;
+
+##### this is a made up data called `Carseats` 
+
+```{r}
+# require(ISLR)
+data(Carseats, package = "ISLR")
+?Carseats
+```
+
+##### unit of observation: store (depending on the time period)
+
+&nbsp;
+
+# **Variables that Seem Important: Formulate an Interesting Question**
+
+### **_Example Graph_**
+```{r}
+graphic_format <- 
+  ggplot(data = Carseats, aes(x = Price, y = Sales, color = Urban)) +
+  geom_point() +
+  ggtitle("Price vs. Sales") +
+  xlab("Price") + 
+  ylab("Sales")
+graphic_format
+```
+
+
+### **_`lm` and `anova`_**
+```{r}
+## sequential table
+fit <- lm(sr ~ ., data = LifeCycleSavings)
+anova(fit)
+
+## same effect via separate models
+fit0 <- lm(sr ~ 1, data = LifeCycleSavings)
+fit0
+fit1 <- update(fit0, . ~ . + pop15)
+fit1
+fit2 <- update(fit1, . ~ . + pop75)
+fit2
+fit3 <- update(fit2, . ~ . + dpi)
+fit3
+fit4 <- update(fit3, . ~ . + ddpi)
+fit4
+```
+
+&nbsp;
+
+### **_F test for `anova`_**
+```{r}
+anova(fit0, fit1, fit2, fit3, fit4, test = "F") # F test
+anova(fit4, fit2, fit0, test = "F") # unconventional order
+```
+
+&nbsp;
+
+### **_Our Example Using `anova`_**
+```{r}
+model_1 <- Sales ~ Price + Population + CompPrice
+linear <- lm(model_1, data = Carseats)
+anova <- anova(linear)
+anova
+```
+
+&nbsp;
+
+### **_Random Forest_**
+https://cran.r-project.org/web/packages/randomForest/randomForest.pdf
+```{r}
+data(iris)
+head(iris)
+iris.rf <- randomForest(iris[,-5], iris[,5], prox=TRUE)
+iris.p <- classCenter(iris[,-5], iris[,5], iris.rf$prox)
+plot(iris[,3], iris[,4], pch=21, xlab=names(iris)[3], ylab=names(iris)[4],
+bg=c("red", "blue", "green")[as.numeric(factor(iris$Species))],
+main="Iris Data with Prototypes")
+points(iris.p[,3], iris.p[,4], pch=21, cex=2, bg=c("red", "blue", "green"))
+```
+
+```{r}
+data(iris)
+rf1 <- randomForest(Species ~ ., iris, ntree=50, norm.votes=FALSE)
+rf2 <- randomForest(Species ~ ., iris, ntree=50, norm.votes=FALSE)
+rf3 <- randomForest(Species ~ ., iris, ntree=50, norm.votes=FALSE)
+rf.all <- combine(rf1, rf2, rf3)
+print(rf.all)
+```
+
+&nbsp;
+
+### **_Maximum Likelihood Estimate_**
+https://stat.ethz.ch/R-manual/R-devel/library/stats4/html/mle.html
+```{r}
+## Avoid printing to unwarranted accuracy
+od <- options(digits = 5)
+x <- 0:10
+y <- c(26, 17, 13, 12, 20, 5, 9, 8, 5, 4, 8)
+
+## Easy one-dimensional MLE:
+nLL <- function(lambda) -sum(stats::dpois(y, lambda, log = TRUE))
+fit0 <- mle(nLL, start = list(lambda = 5), nobs = NROW(y))
+# For 1D, this is preferable:
+fit1 <- mle(nLL, start = list(lambda = 5), nobs = NROW(y),
+            method = "Brent", lower = 1, upper = 20)
+stopifnot(nobs(fit0) == length(y))
+
+## This needs a constrained parameter space: most methods will accept NA
+ll <- function(ymax = 15, xhalf = 6) {
+    if(ymax > 0 && xhalf > 0)
+      -sum(stats::dpois(y, lambda = ymax/(1+x/xhalf), log = TRUE))
+    else NA
+}
+(fit <- mle(ll, nobs = length(y)))
+mle(ll, fixed = list(xhalf = 6))
+## alternative using bounds on optimization
+ll2 <- function(ymax = 15, xhalf = 6)
+    -sum(stats::dpois(y, lambda = ymax/(1+x/xhalf), log = TRUE))
+mle(ll2, method = "L-BFGS-B", lower = rep(0, 2))
+
+AIC(fit)
+BIC(fit)
+
+summary(fit)
+logLik(fit)
+vcov(fit)
+plot(profile(fit), absVal = FALSE)
+confint(fit)
+
+## Use bounded optimization
+## The lower bounds are really > 0,
+## but we use >=0 to stress-test profiling
+(fit2 <- mle(ll, method = "L-BFGS-B", lower = c(0, 0)))
+plot(profile(fit2), absVal = FALSE)
+
+## a better parametrization:
+ll3 <- function(lymax = log(15), lxhalf = log(6))
+    -sum(stats::dpois(y, lambda = exp(lymax)/(1+x/exp(lxhalf)), log = TRUE))
+(fit3 <- mle(ll3))
+plot(profile(fit3), absVal = FALSE)
+exp(confint(fit3))
+
+options(od)
+```
+
+
+
+### **_Hierarchical Clustering_**
+https://cran.r-project.org/web/packages/cluster/cluster.pdf
+
+```{r}
+data(votes.repub)
+agn1 <- agnes(votes.repub, metric = "manhattan", stand = TRUE)
+agn1
+plot(agn1)
+op <- par(mfrow=c(2,2))
+agn2 <- agnes(daisy(votes.repub), diss = TRUE, method = "complete")
+plot(agn2)
+## alpha = 0.625 ==> beta = -1/4 is "recommended" by some
+agnS <- agnes(votes.repub, method = "flexible", par.meth = 0.625)
+plot(agnS)
+par(op)
+## "show" equivalence of three "flexible" special cases
+d.vr <- daisy(votes.repub)
+a.wgt <- agnes(d.vr, method = "weighted")
+a.sing <- agnes(d.vr, method = "single")
+a.comp <- agnes(d.vr, method = "complete")
+iC <- -(6:7) # not using 'call' and 'method' for comparisons
+stopifnot(
+all.equal(a.wgt [iC], agnes(d.vr, method="flexible", par.method = 0.5)[iC]) ,
+all.equal(a.sing[iC], agnes(d.vr, method="flex", par.method= c(.5,.5,0, -.5))[iC]),
+all.equal(a.comp[iC], agnes(d.vr, method="flex", par.method= c(.5,.5,0, +.5))[iC]))
+## Exploring the dendrogram structure
+(d2 <- as.dendrogram(agn2)) # two main branches
+d2[[1]] # the first branch
+d2[[2]] # the 2nd one { 8 + 42 = 50 }
+d2[[1]][[1]]# first sub-branch of branch 1 .. and shorter form
+identical(d2[[c(1,1)]],
+d2[[1]][[1]])
+## a "textual picture" of the dendrogram :
+str(d2)
+data(agriculture)
+## Plot similar to Figure 7 in ref
+## Not run: plot(agnes(agriculture), ask = TRUE)
+data(animals)
+aa.a <- agnes(animals) # default method = "average"
+aa.ga <- agnes(animals, method = "gaverage")
+op <- par(mfcol=1:2, mgp=c(1.5, 0.6, 0), mar=c(.1+ c(4,3,2,1)),
+cex.main=0.8)
+plot(aa.a, which.plot = 2)
+plot(aa.ga, which.plot = 2)
+par(op)
+## Show how "gaverage" is a "generalized average":
+aa.ga.0 <- agnes(animals, method = "gaverage", par.method = 0)
+stopifnot(all.equal(aa.ga.0[iC], aa.a[iC]))
+```
+
+
+
+```{r}
+data(agriculture)
+ag.ag <- agnes(agriculture)
+class(ag.ag)
+pltree(ag.ag) # the dendrogram
+## cut the dendrogram -> get cluster assignments:
+(ck3 <- cutree(ag.ag, k = 3))
+(ch6 <- cutree(as.hclust(ag.ag), h = 6))
+stopifnot(identical(unname(ch6), ck3))
+```

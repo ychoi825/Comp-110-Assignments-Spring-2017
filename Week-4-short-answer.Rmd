@@ -1,13 +1,185 @@
-# Week 4 Short Answer Questions
+# **Week 4 Short Answer Questions**
 
-## Your name should appear here!
+## Yunjae Choi
 
 <!-- leave this material as is -->
 Compiled on `r date()`.
 
 ```{r include = FALSE}
 library(DataComputing)
+library(ggplot2)
 ```
 <!-- put your content after this line -->
 
-Here is my content!
+&nbsp;    
+&nbsp;    
+
+### Chapter 8
+    
+##### Problem 8.1
+
+
+a) geom_point() 
+
+    (2) Add a layer of glyphs
+    
+&nbsp;    
+
+b) geom_histogram() 
+
+    (2) Add a layer of glyphs
+    
+&nbsp;    
+
+c) ggplot() 
+
+    (1) Construct the graphics frame
+    
+&nbsp;    
+
+d) scale_y_log10()
+
+    (5) Change the scale for the frame.
+    
+&nbsp;    
+
+e) ylab() 
+
+    (3) Set an axis label
+    
+&nbsp;    
+
+f) facet_wrap()
+
+    (4) Divide the frame into facets
+    
+&nbsp;    
+
+g) geom_segment() 
+
+    (2) Add a layer of glyphs
+    
+&nbsp;    
+
+h) xlim()
+
+    (5) Change the scale for the frame.
+    
+&nbsp;    
+
+i) facet_grid()
+
+    (2) Add a layer of glyphs
+    
+&nbsp;    
+
+##### Problem 8.2
+
+```{r, echo=TRUE}
+data(CPS85, package = "mosaicData")
+names(CPS85)
+str(CPS85$sector)
+sectornum <- as.numeric(CPS85$sector)
+```
+
+```{r}
+ggplot(data = CPS85, aes(x = age, y = wage, shape = married)) +
+  geom_point() +
+  facet_wrap(~CPS85$sector, nrow = 3)
+```
+
+```{r}
+CPS85 %>%
+  ggplot(aes(x = age, y = wage)) +
+  geom_point() +
+  facet_grid(CPS85$sex ~ CPS85$married)
+```
+
+
+&nbsp;    
+
+##### Problem 8.3
+
+a.
+```{r}
+CPS85 %>%
+  ggplot(aes(age, wage)) +
+  geom_point()
+```
+
+b.
+
+error in the book:
+
+```{r}
+HappinessIndex %>%
+  WorldMap(key="country", fill="corruption")
+```
+
+
+c.
+```{r}
+ggplot(data = CPS85, aes(x = age, y = wage)) +
+  geom_point(aes(shape = sex)) +
+  facet_grid( married ~ .) 
+```
+
+d.
+```{r}
+CPS85 %>%
+  ggplot(aes(x = age, y = wage)) +
+  geom_point(aes(shape = married)) +
+  ylim(0,30)
+```
+
+&nbsp;    
+&nbsp;    
+
+### Chapter 9
+
+##### Problem 9.1
+
+* str() - Quick presentation
+* group_by() - Data verb
+* rank() - Transformation
+* mean() - Summary Function
+* filter() - Data Verb
+* summary() - Quick presentation
+* summarise() - Data verb
+* merge() - Data verb
+* glimpse() - Quick presentation
+
+&nbsp;    
+
+##### Problem 9.3
+
+1. 
+```{r}
+diamonds %>%
+  group_by( color ) %>%
+  summarise( largAve = mean(carat, na.rm = TRUE) ) %>%
+  arrange(desc( largAve )) %>%
+  head( 1 )
+```
+
+
+2. 
+```{r}
+diamonds %>%
+  group_by( clarity ) %>%
+  summarise( largAveTable = mean(table, na.rm = TRUE) ) %>%
+  arrange(desc( largAveTable )) %>%
+  head( 1 )
+```
+
+
+
+
+
+
+
+
+
+
+
+

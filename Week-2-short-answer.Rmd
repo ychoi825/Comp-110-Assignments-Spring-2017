@@ -1,4 +1,4 @@
-# Week 2 Short Answer Questions
+# **Week 2 Short Answer Questions**
 
 ## Yunjae Choi
 
@@ -7,235 +7,265 @@ Compiled on `r date()`.
 
 ```{r include = FALSE}
 library(DataComputing)
+library(mosaicData)
 ```
 <!-- put your content after this line -->
 
+&nbsp;    
+&nbsp;    
 
+### Chapter 1
+    
+##### Problem 1.1
 
-### 1.1, 1.2, 1.4, 1.5
+a. 3
+b. 2
+c. 1
+d. 1
+e. 2
 
+&nbsp;    
 
+##### Problem 1.2
 
-1.1
+    The table is not "tidy" in that the cases within each of the variables are not in the same format. They have to be in a uniform format in order for R to do operations on our commands. For example, all names can be in one form: "Last name, First name," or "First name Last name," but not both.
 
-a) 3
-b) 2
-c) 1
-d) 1
-e) 2
+&nbsp;    
 
-
-
-1.2
-
-The table is not "tidy" in that the cases within each of the variables are not in the same format. They have to be in a uniform format in order for R to do operations on our commands. For example, all names can be in one form: "Last name, First name," or "First name Last name," but not both.
-
-
-1.4
+##### Problem 1.4
 
 1. What are the variables in each table?
 
-  * Data Table A: Year, Algeria, Brazil, Columbia
-  * Data Table B: Country, Y2000, Y2001
-  * Data Table C: Country, Year, Value
-  
+    * Data Table A: Year, Algeria, Brazil, Columbia
+    * Data Table B: Country, Y2000, Y2001
+    * Data Table C: Country, Year, Value
+      
+&nbsp;    
+
 2. What is the meaning of a case for each table?
 
-  * Data Table A: A year
-  * Data Table B: A country
-  * Data Table C: A country in a year
+    * Data Table A: A year
+    * Data Table B: A country
+    * Data Table C: A country in a year
 
+&nbsp;    
 
+##### Problem 1.5
 
-1.5
+1. How many variables are there? 
+        
+        8
+        
+2. What do the cases represent? 
 
-1. How many variables are there? 8 
-2. What do the cases represent? Airport names in FAA airport code
+        Airport names in FAA airport code
+      
 3. For each variable, make a reasonable guess about whether the values will be numerical or quantitative.
 
-  * faa - categorical
-  * name - categorical
-  * lat - quantitative
-  * lon - quantitative
-  * alt - quantitative
-  * tz - quantitative
-  * dst - categorical
-  * tzone - categorical
-```{r}
-# install.packages("nycflights13")
-# library("nycflights13")
-data(data = airports, package = "nycflights13")
-ncol(airports)
-variable.names(airports)
-head(airports)
-```
+        * faa - categorical
+        * name - categorical
+        * lat - quantitative
+        * lon - quantitative
+        * alt - quantitative
+        * tz - quantitative
+        * dst - categorical
+        * tzone - categorical
+        
+&nbsp;    
 
+##### Problem 2.2
 
+    file name
 
+&nbsp;    
 
-### 2.2, 2.3, 2.4, 2.6, 2.7, 2.8, 2.9, 2.10
-
-2.2
-
-file name
-
-
-
-2.3
+##### Problem 2.3
 ```{r}
 # install.packages("mosaicData")
-data(data = CPS85, package = "mosaicData")
+# data(data = CPS85, package = "mosaicData")
 # help(CPS85, package = "mosaicData")
 ```
-The Current Population Survey (CPS) is used to supplement census information between census years. These data consist of a random sample of persons from the CPS85, with information on wages and other characteristics of the workers, including sex, number of years of education, years of work experience, occupational status, region of residence and union membership.
 
+        The Current Population Survey (CPS) is used to supplement census information between census years. These data consist of a random sample of persons from the CPS85, with information on wages and other characteristics of the workers, including sex, number of years of education, years of work experience, occupational status, region of residence and union membership.
 
+&nbsp;    
 
-2.4
+##### Problem 2.4
 
-the data name cannot be the same as the package name. A package contains a number of data. The package here should be where NHANES comes from.
+        the data name cannot be the same as the package name. A package contains a number of data. The package here should be where NHANES comes from.
 
+&nbsp;    
 
-
-2.6
+##### Problem 2.6
 
 1. OK
 2. Wrong
+
+        a dash (-) is not one of the allowed punctuation marks in an object name.
+
 3. Wrong
+  
+        Being in quotes, "MyData" is a constant, not an object name.
+
 4. OK
 5. Wrong
+
+        a space is not allowed in an object name
+    
 6. OK
 7. OK
-8. Wrong
+8. OK
+
+
 9. Wrong
 
+        parentheses not allowed 
 
+&nbsp;    
 
-2.7
+##### Problem 2.7
 
 Installing done above.
 ```{r}
 data(flights, package = "nycflights13")
-ncol(flights)
-nrow(flights)
-# View(flights)
-str(flights)
-# class(flights$time_hour) # this can be considered a string
 ```
 
-1. How many variables are there? 19
-2. How many cases are there? 336776
-3. What is the meaning of a case? ("Meaning" refers to the kind of entity, for instance, "airport" or "airline" or "date". Hint: the case in flights is not any of these things.)
+1. How many variables are there? 
+```{r}
+ncol(flights)
+```
+
+2. How many cases are there? 
+```{r}
+nrow(flights)
+```
+
+3. What is the meaning of a case? ("Meaning" refers to the kind of entity, for instance, "airport" or "airline" or "date". Hint: the case in flights is not any of these things.) 
 On-time data for all flights that departed NYC (i.e. JFK, LGA or EWR) in 2013.
-4. For each variable, is the variable quantitative or categorical?
 
-
-  All "int" and "num" are quantitative and "chr" are categorical.
-   $ year          : int  2013 2013 2013 2013 2013 2013 2013 2013 2013 2013 ...
-   $ month         : int  1 1 1 1 1 1 1 1 1 1 ...
-   $ day           : int  1 1 1 1 1 1 1 1 1 1 ...
-   $ dep_time      : int  517 533 542 544 554 554 555 557 557 558 ...
-   $ sched_dep_time: int  515 529 540 545 600 558 600 600 600 600 ...
-   $ dep_delay     : num  2 4 2 -1 -6 -4 -5 -3 -3 -2 ...
-   $ arr_time      : int  830 850 923 1004 812 740 913 709 838 753 ...
-   $ sched_arr_time: int  819 830 850 1022 837 728 854 723 846 745 ...
-   $ arr_delay     : num  11 20 33 -18 -25 12 19 -14 -8 8 ...
-   $ carrier       : chr  "UA" "UA" "AA" "B6" ...
-   $ flight        : int  1545 1714 1141 725 461 1696 507 5708 79 301 ...
-   $ tailnum       : chr  "N14228" "N24211" "N619AA" "N804JB" ...
-   $ origin        : chr  "EWR" "LGA" "JFK" "JFK" ...
-   $ dest          : chr  "IAH" "IAH" "MIA" "BQN" ...
-   $ air_time      : num  227 227 160 183 116 150 158 53 140 138 ...
-   $ distance      : num  1400 1416 1089 1576 762 ...
-   $ hour          : num  5 5 5 5 6 5 6 6 6 6 ...
-   $ minute        : num  15 29 40 45 0 58 0 0 0 0 ...
-   $ time_hour     : POSIXct, format: "2013-01-01 05:00:00" "2013-01-01 05:00:00" "2013-01-01 05:00:00" "2013-01-01 
-
-
-5. For the variables air_time and distance, what are the units? minutes
-
-
-
-2.8
-
-"-->" indicates to what it should be changed.
-
-a. ralph <- sqrt 10               3
-b. ralph2 <-- "Hello to you!"     1
-c. 3ralph <- "Hello to you!"      4
-d. ralph4 <- "Hello to you!       2
-e. ralph5 <- date()               5
+        To look up the meanings of variables:
     
+```{r}
+# Help(flights)
+```
 
+4. For each variable, is the variable quantitative or categorical?
+```{r}
+str(flights)
+class(flights$time_hour) # this can be considered a string
+```
 
-2.9
+5. For the variables air_time and distance, what are the units?     
+
+        minutes
+        
+```{r}
+# Help(flights)
+```
+
+&nbsp;    
+
+##### Problem 2.8
+
+"<--" indicates to what it should be changed.
+
+a. ralph <- sqrt 10               
+
+        3
+    
+b. ralph2 <-- "Hello to you!"     
+    
+        1
+    
+c. 3ralph <- "Hello to you!"      
+
+        4
+    
+d. ralph4 <- "Hello to you!       
+
+        2
+    
+e. ralph5 <- date()               
+
+        5
+    
+&nbsp;    
+
+##### Problem 2.9
 
 1. "." and "_"
 2. All of them
 
 
+&nbsp;    
 
-2.10
+##### Problem 2.10
+
+1.
 ```{r}
 data(data = CountryData, package = "DataComputing")
 ncol(CountryData)
 ```
-1. 76
 
+2. mass of trunk fat
 ```{r}
 # help(NCHS, package = "DataComputing")
 ```
-2. mass of trunk fat
 
+3.
 ```{r}
 data(data = WorldCities, package = "DataComputing")
 nrow(WorldCities)
 ```
-3. 23018
 
+4. Count
 ```{r}
 data(data = BabyNames, package = "DataComputing")
 head(BabyNames)
 ```
-4. Count
 
+5. 
 ```{r}
 data(RegisteredVoters, package = "DataComputing")
 levels(RegisteredVoters$party)
 ```
-5. "DEM" "LIB" "REP" "UNA"
 
 
+&nbsp;    
 
+##### Problem 3.1
 
+1. data frame (fireplace)
 
-### 3.1, 3.2, 3.3, 3.4, 3.5, 3.6
-
-3.1
-data frame (fireplace)
+    Put it at the start of a chain, e.g. fireplace %>% nrow()
 ```{r}
 fireplace <- data.frame(c(1,2,3,4,5), row.names = 1,4,36)
 fireplace
 ```
 
-a function (b)
-In this case, "sqrt" is a function
-```{r}
-b = sqrt(4)
-```
+&nbsp;    
 
-the name of a named argument (c)
-"BabyNames" is the name of a named argument, "data"
-```{r}
-# data(data = BabyNames, package = "DataComputing")
-```
+2. a function (b)
 
-a variable (d)
-"sex" in "BabyNames"
+    In this case, "sqrt" is a function; Follow it by an open parenthesis, fileplace(
 
+&nbsp;    
 
-3.2 
-"Result <- %>% filter(BabyNames, name=="Prince")" is illegitimate because there's no data frame that the filter function is being applied to. It should be
+3. the name of a named argument (c)
+
+    "BabyNames" is the name of a named argument, "data"; Follow it by = inside the parentheses of a function, e.g., fun(fileplace = 7)
+
+&nbsp;    
+
+4. a variable (d)
+
+    "sex" in "BabyNames"; place it inside the parentheses of a function, but not in the position of the name of a named argument, e.g., fun(fileplace) or fun(x = fireplace)
+
+&nbsp;    
+
+##### Problem 3.2
+
+    "Result <- %>% filter(BabyNames, name=="Prince")" is illegitimate because there's no data frame that the filter function is being applied to. It should be
 ```{r}
 library("magrittr")
 Result <- 
@@ -243,14 +273,19 @@ Result <-
   filter(name == "Prince")
 ```
 
-3.3
+&nbsp;    
 
-A package contains many data set. Therefore, NHANES cannot be the package for this particular data set, "NHANES"
+##### Problem 3.3
+
+    A package contains many data set. Therefore, NHANES cannot be the package for this particular data set, "NHANES"
 ```{r}
 # help(NHANES, package <- "NHANES")
 ```
 
-3.4
+&nbsp;    
+
+##### Problem 3.4
+
 ```{r}
 # BabyNames = data(data = BabyNames, package = "DataComputing")
 
@@ -288,7 +323,10 @@ Princes %>%
 19. d
 
 
-3.5
+&nbsp;    
+
+##### Problem 3.5
+
 ```{r}
 data(msleep, package = "ggplot2")
 # help(msleep)
@@ -300,54 +338,47 @@ nrow(msleep)
 3. number of observations in the data
 4. carnivore, omnivore or herbivore
 
+&nbsp;    
 
-3.6
-d
+##### Problem 3.6
 
+    Statement (c) is different. Rather than calculating the total number of births (using sum()), it finds the mean number of births across all the cases in each year/sex group.
 
+&nbsp;    
+&nbsp;    
 
+### Chapter 4
 
-### 4.1, 4.2, 4.3, 4.4, 4.5
+&nbsp;    
 
-*one*
+##### Problem 4.1
 
-italics
+1. italics: *one*
+2. bold face: **two**
+3. bullet point:
 
+        * three
 
-
-**two**
-
-bold face
-
-
-
-* three
-
-bullet point
-
+4. biggest size of the headings 
 
 # Four
 
-biggest size of the headings
-
+5. it would just print out 'five'
 
 `five`
 
-it would just print out 'five'
-
+6. "Six" that is of a smaller size than the biggest size "#"
 
 ## Six
 
-"Six" that is of a smaller size than the biggest size "#"
-
-
+7. text "seven" that takes us to the following link
 
 [seven](http://tiny.cc/dcf/index.html)
-text "seven" that takes us to the following link
 
 
+&nbsp;    
 
-4.2
+##### Problem 4.2
 
 1. not correct "`" mark
 1. not correct "`" mark
@@ -356,9 +387,12 @@ text "seven" that takes us to the following link
 1. need 3 "`" marks each in the beginnning and end
 
 
-4.3
+&nbsp;    
+
+##### Problem 4.3
 
 ### An Introduction
+
 Arithmetic is *easy*! For instance
 ```{r}
 3 + 2
@@ -366,8 +400,9 @@ Arithmetic is *easy*! For instance
 
 The above heading will be in bigger font than the rest. The text "easy" will be italicized. 3 + 2 will appear in the calculated form 5.
 
+&nbsp;    
 
-4.4
+##### Problem 4.4
 
 1. a possible URL
 1. a possible file
@@ -377,6 +412,8 @@ The above heading will be in bigger font than the rest. The text "easy" will be 
 1. a possible file
 
 
+&nbsp;    
 
-4.5
+##### Problem 4.5
+
 Done on a separate file Birds.Rmd

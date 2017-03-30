@@ -1,0 +1,107 @@
+---
+title: "**Week 1: Chapter Notes**"
+author: "Yunjae Choi"
+date: "February 1, 2017"
+output: html_document
+---
+
+<!-- leave this material as is -->
+```{r include = FALSE}
+library(DataComputing)
+library(dplyr)
+library(ggplot2)
+library(magrittr)
+```
+<!-- put your content after this line -->
+
+&nbsp;
+&nbsp;
+
+### **Chapter 2**
+
+##### _One Way to Trim Data_
+```{r}
+SmallNCSH = sample_n(NCHS, 100)
+```
+
+##### _Open csv Data_
+```{r}
+## Motors <- read.csv("http://tiny.cc/mosaic/engines.csv")
+```
+
+&nbsp;
+
+### **Chapter 3**
+
+##### _Filter By A Specific Name in a Variable_
+```{r}
+BabyNames_Arjun <- BabyNames %>%
+  filter(name == "Arjun") %>%
+  summarize(total = sum(count))
+BabyNames_Arjun
+```
+
+&nbsp;
+
+##### _Useful Data Verbs_
+```{r}
+BabyNames %>% nrow() # how many cases in the table
+BabyNames %>% names() # the names of the variables
+BabyNames %>% head(3) # first three rows
+BabyNames %>% str() # structure of an r object
+BabyNames %>% glimpse() # the same as str()
+```
+
+&nbsp;
+
+##### _Filter By Year 1998_
+```{r}
+BabyNames1998 <- BabyNames %>%
+    filter(year == 1998)
+```
+
+&nbsp;
+
+##### _Group By Sex and How Many in Each_
+```{r}
+BabyNames_sex <- BabyNames %>%
+  group_by(sex) %>%
+  summarise(total = sum(count))
+```
+
+&nbsp;
+
+##### _Filter By the Name "Prince", Group By, and Sum_
+```{r}
+Princes <-
+    BabyNames %>%
+    filter(name == "Prince") %>%
+    group_by(year, sex) %>%
+    summarise(yearlyTotal = sum(count))
+```
+
+&nbsp;
+
+##### _Another Way to Write_
+```{r}
+Princes2 <-
+  summarise(
+    group_by(
+      filter(BabyNames, name == "Prince"),
+        year, sex),
+      yearlyTotal = sum(count))
+Princes2
+```
+
+&nbsp;
+
+##### _Graphing_
+```{r}
+Princes %>%
+    ggplot(aes(x = year, y = yearlyTotal)) +
+    geom_point(aes(color = sex)) +
+    geom_vline(xintercept = 1978) +
+    ylim(0,640) + 
+    xlim(1880,2015)
+```
+

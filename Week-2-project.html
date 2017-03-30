@@ -120,20 +120,24 @@ $(document).ready(function () {
 
 
 <div id="week-2-project" class="section level1">
-<h1>Week 2 Project</h1>
+<h1><strong>Week 2 Project</strong></h1>
 <div id="yunjae-choi" class="section level2">
 <h2>Yunjae Choi</h2>
 <!-- leave this material as is -->
-<p>Compiled on Tue Feb 14 21:41:12 2017.</p>
+<p>Compiled on Tue Mar 14 22:47:13 2017.</p>
 <!-- put your content after this line -->
-<pre class="r"><code># download.file(&quot;http://tiny.cc/dcf/Library-small.rda&quot;,
-#               dest=&quot;Library-small.rda&quot;)</code></pre>
+<p> </p>
+<div id="preparing-data" class="section level3">
+<h3>Preparing Data</h3>
+<pre class="r"><code>download.file(&quot;http://tiny.cc/dcf/Library-small.rda&quot;,
+              dest=&quot;Library-small.rda&quot;)</code></pre>
 <pre class="r"><code>load(&quot;Library-small.rda&quot;)</code></pre>
+<p> </p>
 </div>
-<div id="basics" class="section level2">
-<h2>Basics</h2>
-<div id="grouping-by-current-status" class="section level3">
-<h3>Grouping by Current Status</h3>
+<div id="basics" class="section level3">
+<h3>Basics</h3>
+<div id="grouping-by-current-status" class="section level5">
+<h5>Grouping by Current Status</h5>
 <pre class="r"><code>Inv %&gt;%
   group_by(Current.Status) %&gt;%
   tally()</code></pre>
@@ -145,8 +149,8 @@ $(document).ready(function () {
 ## 3        ON_LOAN    18
 ## 4      WITHDRAWN   115</code></pre>
 </div>
-<div id="grouping-by-issued-count" class="section level3">
-<h3>Grouping by Issued Count</h3>
+<div id="grouping-by-issued-count" class="section level5">
+<h5>Grouping by Issued Count</h5>
 <pre class="r"><code>Inv %&gt;%
   group_by(Issued.Count) %&gt;%
   tally()</code></pre>
@@ -164,6 +168,7 @@ $(document).ready(function () {
 ## 9             8    24
 ## 10            9    20
 ## # ... with 36 more rows</code></pre>
+</div>
 </div>
 </div>
 </div>

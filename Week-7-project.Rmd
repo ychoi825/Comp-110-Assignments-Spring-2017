@@ -1,13 +1,98 @@
-# Week 7 Project
+# **Week 7 Project**
 
-## Your name should appear here!
+## Yunjae Choi
 
 <!-- leave this material as is -->
 Compiled on `r date()`.
 
 ```{r include = FALSE}
 library(DataComputing)
+library(rvest)
+library(lubridate)
+library(xml2)
 ```
 <!-- put your content after this line -->
 
-Here is my content!
+
+### *Parsing HTML into a data table*
+```{r}
+page <- "http://en.wikipedia.org/wiki/List_of_nuclear_reactors"
+
+table_nodes <- page %>%
+  read_html() %>%
+  html_nodes("table")
+
+table_list <-
+  html_table(table_nodes[1:30], fill = TRUE)
+```
+
+
+
+1. Find the table element
+```{r}
+length(table_list)
+# table_list[[20]]
+head(table_list[[5]])
+head(table_list[[30]])
+```
+
+
+### *Change Index For Japan*
+```{r}
+table = table_list[[24]]  # change index for Japan
+names(table)
+```
+
+
+### *Change Variable Names and Remove First Row*
+```{r}
+# View(table)
+names(table)
+new_names <- c("Name", "Reactor No.", "Reactor Type", "Reactor", "Status", "Gross MW", "Net MW", "Construction Start Date", "Commercial Operation Date", "Closure")
+names(table) <- new_names # reset the variable names
+table <- table[-1, ] # drop the first row
+table <- table %>% mutate(`Gross MW` = as.numeric(`Gross MW`))
+table <- table %>% mutate(`Net MW` = as.numeric(`Net MW`))
+```
+
+
+
+### *Change Date Type*
+```{r message = FALSE}
+table <-
+  table %>%
+  mutate(startd = 
+           as.POSIXct(lubridate::dmy(`Construction Start Date`)),
+         oper = 
+          as.POSIXct(lubridate::dmy(`Commercial Operation Date`)),
+         closed =
+           as.POSIXct(lubridate::dmy(`Closure`)))
+head(table)
+```
+
+
+### *A Quick Visualization*
+```{r warning=FALSE}
+class(table$`Gross MW`)
+library(ggplot2)
+ggplot(table, aes(x = startd, y = `Net MW`)) + 
+  geom_point(aes(color = `Reactor Type`))
+
+```
+
+
+
+
+
+### *Construction Delays*
+```{r}
+ggplot(table, aes(x = startd, y = `Name`)) + 
+  geom_segment(aes(x = startd, y = `Name`, xend = oper, yend = `Name`, color = `Reactor No.`))
+```
+
+
+
+
+
+
+

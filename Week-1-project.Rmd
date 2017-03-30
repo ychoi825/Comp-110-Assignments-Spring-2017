@@ -1,6 +1,6 @@
-# Week 1 Project  
+# **Week 1 Project**
 
-#### Diana Yunjae Choi
+## Yunjae Choi
 
 <!-- leave this material as is -->
 Compiled on `r date()`.
@@ -12,8 +12,7 @@ library("DataComputing")
 ```
 <!-- put your content after this line -->
 
-Here is my content!
-A Part of My Mom's Life
+### **A Part of My Mom's Life**
 
 * My mother was born in 1967.
 * She majored in Nutrition and Health for undergrad.
@@ -24,8 +23,9 @@ A Part of My Mom's Life
 
 
 This is another section. Two sections are required.
-Her Childhood
 
+Her Childhood
+      
 1. When my mom was young, she LOVED her mom.
 1. She also loved eating noodles.
 1. She was always very creative (and still is) with making food.
@@ -39,4 +39,3 @@ my_number = sin(sqrt(pi))
 ```{r}
 secondchunk = (asin(my_number))^2
 ```
-

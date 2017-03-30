@@ -1,13 +1,107 @@
-# Week 5 Project
+# **Week 5 Project**
 
-## Your name should appear here!
+## Yunjae Choi
+
 
 <!-- leave this material as is -->
 Compiled on `r date()`.
 
 ```{r include = FALSE}
 library(DataComputing)
+library(dplyr)
+library(tidyr)
 ```
 <!-- put your content after this line -->
 
-Here is my content!
+&nbsp;
+
+https://dtkaplan.github.io/comp110/Projects/552-Economist-graph.html
+##### _Downloading Data_
+```{r eval = FALSE}
+download.file("http://tiny.cc/dcf/ScorecardSmall.csv", 
+              destfile = "ScorecardSmall.csv")
+```
+
+```{r cache=TRUE}
+ScorecardSmall <- read.csv("ScorecardSmall.csv", stringsAsFactors = FALSE)
+```
+
+&nbsp;
+
+##### _Wrangling Data_
+###### `gather()`
+
+* `gather` takes multiple columns and collapses into key-value pairs, duplicating all other columns as needed. You use `gather` when you notice that you have columns that are not variables.
+
+        gather(data, key, value, ...)
+        
+* `substr` replaces substrings in a character vector  
+
+        substr(x, start, stop)
+
+```{r}
+ScorecardSmall %>%
+  select(CCSIZSET, CONTROL, ADM_RATE, NPT41_PUB, NPT41_PRIV, NPT43_PRIV,NPT43_PUB, NPT45_PRIV, NPT45_PUB) %>%
+  filter(CONTROL!=3) %>%
+  tidyr::gather(key = Quantile, value = Cost, NPT41_PUB, NPT41_PRIV, NPT43_PRIV,NPT43_PUB, NPT45_PRIV, NPT45_PUB) %>%
+  mutate(Q = substr(Quantile, 5,5)) %>%
+  head()
+```
+
+&nbsp;
+
+
+##### **_Chunk Codes_**
+```{r warning = FALSE}
+
+ScorecardSmall %>%
+  mutate(CONTROL = ifelse(CONTROL == 1, "PUBLIC", "PRIVATE")) %>%
+  select(CCSIZSET, CONTROL, ADM_RATE, NPT41_PUB, NPT41_PRIV, NPT43_PRIV,NPT43_PUB, NPT45_PRIV, NPT45_PUB) %>%
+  filter(CONTROL!=3) %>%
+  tidyr::gather(key = Quantile, value = Cost, NPT41_PUB, NPT41_PRIV, NPT43_PRIV,NPT43_PUB, NPT45_PRIV, NPT45_PUB) %>%
+  mutate(Q = substr(Quantile, 5,5)) %>%
+  mutate(Q = paste0("Q", Q)) %>%
+  ggplot(aes(x = ADM_RATE, y = Cost)) + 
+  geom_point(color = "blue", alpha = 0.05) + 
+  facet_grid(CONTROL ~ Q) + 
+  geom_smooth(color="black") + xlab("Admission Rate") + ylab("Cost")
+```
+
+
+&nbsp;
+
+!!! line 75 won't run + keep on creating cache file
+```{r}
+plot_data <- ScorecardSmall %>%
+  select(CCSIZSET, CONTROL, ADM_RATE, NPT41_PUB, NPT41_PRIV, NPT43_PRIV,NPT43_PUB, NPT45_PRIV, NPT45_PUB) %>%
+  filter(CONTROL!=3) %>%
+  gather(key = Quantile, value = Cost, NPT41_PUB, NPT41_PRIV, NPT43_PRIV,NPT43_PUB, NPT45_PRIV, NPT45_PUB) %>%
+  mutate(Q1=NPT41_PUB, Q2=NPT42_PUB, Q3=NPT43_PUB, Q4=NPT44_PUB, Q5=NPT45_PUB, Q1=NPT41_PRIV, Q2=NPT42_PRIV, Q3=NPT43_PRIV, Q4=NPT44_PRIV, Q5=NPT45_PRIV)
+
+
+ggplot(plot_data, aes(x = ADM_RATE, y = Cost)) + 
+  geom_point(color = "blue", alpha = 0.05) + 
+  facet_grid(CONTROL~Q) + 
+  geom_smooth(color="black") + xlab("Admission Rate") + ylab("Cost")
+```
+
+
+
+
+##### **_Reference Using `Factor`_**
+```{r}
+data <- transform(mtcars,
+  am = factor(am, levels = 0:1, c("Automatic", "Manual")),
+  gear = factor(gear, levels = 3:5, labels = c("Three", "Four", "Five"))
+)
+p <- ggplot(data, aes(mpg, disp)) + geom_point()
+p + facet_grid(am ~ gear, switch = "both")
+# It looks better without boxes around the strips
+p + facet_grid(am ~ gear, switch = "both") +
+  theme(strip.background = element_blank())
+```
+
+
+
+
+

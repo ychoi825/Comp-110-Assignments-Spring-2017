@@ -1,13 +1,132 @@
-# Week 8 Project
+# **Week 8 Project**
 
-## Your name should appear here!
+## Yunjae Choi
 
 <!-- leave this material as is -->
 Compiled on `r date()`.
 
 ```{r include = FALSE}
 library(DataComputing)
+library(mosaic)
+library(ggplot2)
+library(ggdendro)
+library(dplyr)
+library(tidyr)
 ```
 <!-- put your content after this line -->
 
-Here is my content!
+```{r}
+data(mtcars)
+```
+
+
+1. The process is as follows:
+Find the distances from each case to every other case. The dist() function accomplishes this.
+```{r}
+Dists <- dist(mtcars) 
+```
+
+
+2. Apply the clustering algorithm to make the dendrogram.
+```{r}
+Dendrogram <- hclust(Dists)
+```
+
+```{r}
+ddata <- dendro_data(Dendrogram)
+```
+
+
+3. Visualize the dendrogram
+```{r}
+ggdendrogram(Dendrogram, rotate = TRUE) +
+  geom_text(data = ddata$labels, aes(x=x, y=y, label = label), vjust = 0) 
+```
+
+### **_Wrangling the genetics data_**
+
+```{r}
+head(NCI60)
+names(NCI60)
+Narrow <- 
+  NCI60 %>%
+  gather(value=expression, key=cellLine, -Probe) %>%
+  group_by(Probe, cellLine) %>%
+  summarise(expression = mean(expression)) %>% 
+  ungroup()
+```
+
+
+
+
+```{r}
+keep <- 500
+Best <-
+  Narrow %>%
+  group_by(Probe) %>%
+  summarise(spread = sd(expression)) %>%
+  arrange(desc(spread)) %>%
+  mutate(i = row_number()) %>%
+  head(keep)
+
+Randomized <-
+  Narrow %>%
+  mutate(Probe = shuffle(Probe)) %>%
+  group_by(Probe) %>%
+  summarise(spread = sd(expression)) %>%
+  arrange(desc(spread)) %>%
+  mutate(i = row_number()) %>%
+  head(keep)
+
+Best %>% 
+  ggplot(aes(x=i, y=spread)) + 
+  geom_line() +
+  geom_line(data=Randomized, color="red", size=1, alpha=.5)
+```
+
+
+
+```{r}
+Keepers <-
+  Narrow %>% group_by(Probe) %>%
+  filter(sd(expression) > 4.5)
+```
+
+
+```{r}
+head(Keepers$cellLine)
+Keepers <-
+  Keepers %>%
+  spread(key=Probe, value=expression)
+
+row.names(Keepers) <- Keepers$cellLine
+
+Dists <- dist(Keepers %>% select(-cellLine))
+# Dists
+
+Dendrogramx <- hclust(Dists)
+dendoData <- dendro_data(Dendrogramx)
+ggdendro::ggdendrogram(Dendrogramx)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

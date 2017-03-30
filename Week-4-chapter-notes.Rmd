@@ -1,0 +1,258 @@
+---
+title: "**Week 4: Chapter Notes - Data Verbs**"
+author: "Yunjae Choi"
+date: "February 14, 2017"
+output: html_document
+---
+
+<!-- leave this material as is -->
+```{r include = FALSE}
+library(DataComputing)
+library(ggplot2)
+library(statisticalModeling)
+```
+<!-- put your content after this line -->
+
+&nbsp;
+&nbsp;
+
+### **Chapter 8**
+
+Glyphs are created by functions starting with geom_. There are many kinds of glyphs, so there are many geom_ functions: geom_point(), geom_line(), geom_bar(), geom_boxplot(), geom_density(), and so on.
+
+
+#### _BabyNames Using `ggplot`_
+
+##### Make a Dataset of Only Princes
+
+```{r}
+Princes <-
+  BabyNames %>%
+  filter(name == "Prince")
+```
+
+##### Make it Count vs. Year
+```{r}
+the_frame <- ggplot(data = Princes,
+                    aes(x = year, y = count))
+layer1 <- geom_point(data = Princes, 
+                     aes(shape = sex))
+layer2 <- geom_vline(xintercept = 1978)
+```
+
+##### The Final Graph
+```{r}
+final <-
+  Princes %>%
+  ggplot(aes(x = year, y = count, shape = sex)) +
+  geom_point() +
+  geom_vline(xintercept = 1978)
+final
+```
+
+&nbsp;
+
+#### _Heights Using `ggplot`_
+
+```{r}
+Heights <-
+  NCHS %>%
+  filter( age > 20, ! is.na(smoker)) %>%
+  group_by(sex, smoker, age) %>%
+  summarise(height = mean(height, na.rm=TRUE))
+```
+
+```{r}
+Heights %>%
+  ggplot(aes(x = age, y = height)) +
+  geom_line(aes(linetype = smoker)) +
+  facet_wrap( ~ sex)
+```
+
+&nbsp;
+&nbsp;
+
+### **Online Tutorials**
+#### _Data Computing: Chapter 9_
+
+&nbsp;
+
+##### **_CountryData Using `statisticalModeling` package_**
+https://dtkaplan.shinyapps.io/Chapter-08-collection/
+```{r warning = FALSE}
+data(CountryData, package = "DataComputing")
+gf_point(death ~ life + alpha:GDPcapita, data = CountryData, verbose = TRUE)
+```
+
+&nbsp;
+
+##### **_More BabyNames Using `ggplot`_**
+
+1. Popular?
+
+Write a wrangling statement to extract out only those names where the total number of births over all the years and both sexes is greater than 265. Your result will look like this (although the names in Twenty will be different.)
+
+```{r}
+data(BabyNames, package = "DataComputing")
+BabyNames %>% 
+  group_by(name) %>%
+  summarise(total = n()) %>%
+  filter(total >= 265)
+```
+
+&nbsp;
+
+2. Popular Ever?
+
+Write a wrangling statement to extract only those names for which there is some year where the total numbers of babies is greater than 50 (combining boys and girls). Your result should look like this: the name followed by the total count in the best year and the year in which that occurred.
+
+```{r}
+BabyNames %>% 
+  group_by(name) %>%
+  summarise(total = n()) %>%
+  filter(total == max(total))
+```
+
+&nbsp;
+
+3. Popular Forever?
+
+Now write a wrangling statement that extract only those names which appear at least 50 times per year for at least 80 of the 134 year time span. Your result should look like this:
+
+```{r}
+# View(Minneapolis2013)
+BabyNames %>% 
+  filter(count>50) %>% 
+  group_by(name) %>% 
+  summarise(nyears = n()) %>% 
+  filter(nyears >= 80)
+```
+
+&nbsp;
+
+##### **_Making a Graphics Frame_**
+
+Calculate the number of votes for candidates who received more than 10,000 votes altogether.
+```{r}
+Minneapolis2013 %>%
+  group_by(First) %>%
+  summarise(total_votes = n()) %>%
+  filter(total_votes > 10000)
+```
+
+&nbsp;
+
+##### **_Counting Babies_**
+
+Small subset of  BabyNames, 200 randomly selected cases from the years since 2000
+```{r}
+SmallSubset <-
+  BabyNames %>%
+  filter(year > 2000) %>%
+  sample_n(size = 200)
+```
+
+&nbsp;
+
+1. How many babies are represented?
+
+```{r}
+SmallSubset %>%
+  summarise(total = sum(count)) # use a reduction verb
+```
+
+&nbsp;
+
+2. How many babies are there in each year?
+
+```{r}
+SmallSubset %>%
+  group_by(year) %>%
+  summarise(total = sum(count)) # use a reduction verb
+```
+
+&nbsp;
+
+3. How many distinct names are in each year?
+
+```{r}
+SmallSubset %>%
+  group_by(year) %>%
+  summarise(total = n_distinct(name)) # use a reduction verb
+```
+
+&nbsp;
+
+4. How many distinct names of each sex are in each year?
+
+```{r}
+SmallSubset %>%
+  group_by(year, sex) %>%
+  summarise(name_count = n_distinct(name)) # use a reduction verb
+```
+
+&nbsp;
+
+##### **_Whatever happened to Jane and Mary?_**
+
+&nbsp;
+
+##### 1. Track the yearly number of Janes and Marys over the years.
+
+```{r}
+Result <-
+  BabyNames %>%
+  filter(name %in% c("Jane", "Mary")) %>% # keep just the Janes and Marys
+  group_by(year, name) %>% # for each year for each name
+  summarise(count = sum(count)) %>%
+  arrange(desc(name))
+
+Result
+```
+
+&nbsp;
+
+##### 2. Plot out the result of (1).
+
+```{r}
+Result %>% 
+  ggplot(aes(x = year, y = count, color = name)) +
+  geom_point() +
+  ggtitle("Yearly Number of Janes and Mary") +
+  xlab("Year") + 
+  ylab("Count")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

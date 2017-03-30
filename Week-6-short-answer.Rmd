@@ -1,6 +1,6 @@
-# Week 6 Short Answer Questions
+# **Week 6 Short Answer Questions**
 
-## Your name should appear here!
+## Yunjae Choi
 
 <!-- leave this material as is -->
 Compiled on `r date()`.
@@ -10,4 +10,87 @@ library(DataComputing)
 ```
 <!-- put your content after this line -->
 
-Here is my content!
+&nbsp;    
+&nbsp;    
+
+### Chapter 12
+    
+##### Problem 12.1
+For each sex, find the 5 most popular names in BabyNames adding up over all the years.
+```{r}
+BabyNames_ranks <- BabyNames %>%
+  group_by(sex, name) %>%
+  summarise(nNames = sum(count)) %>%
+  mutate(rank = rank(desc(nNames))) %>% 
+  filter(rank <= 5) %>% 
+  arrange(desc(rank))
+
+BabyNames_ranks
+```
+
+
+```{r}
+BabyNames_ranks <- BabyNames %>%
+  filter(sex==F) %>%
+  summarise(nNames = sum(count))
+
+BabyNames_ranks <- BabyNames_ranks %>%
+  mutate(rank = rank(desc(nNames))) %>%
+  filter(rank <= 5) %>% arrange(desc(rank))
+
+
+```
+
+
+
+
+
+&nbsp;    
+
+##### Problem 12.2
+
+&nbsp;    
+
+##### Problem 12.3
+
+
+&nbsp;    
+&nbsp;    
+
+### Chapter 13
+
+##### Problem 13.1
+
+&nbsp;    
+
+##### Problem 13.2
+
+&nbsp;    
+
+##### Problem 13.3
+
+&nbsp;    
+
+##### Problem 13.4
+
+
+&nbsp;    
+&nbsp;    
+
+### Chapter 14
+
+##### Problem 14.1
+
+&nbsp;    
+
+##### Problem 14.3
+
+&nbsp;    
+
+##### Problem 14.7
+
+&nbsp;    
+
+##### Problem 14.10
+
+

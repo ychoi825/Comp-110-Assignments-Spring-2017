@@ -1,0 +1,92 @@
+---
+title: "**Week 4: In Class Notes**"
+author: "Yunjae"
+date: "March 14, 2017"
+output: html_document
+---
+
+<!-- leave this material as is -->
+Compiled on `r date()`.
+
+```{r include = FALSE}
+library(DataComputing)
+```
+<!-- put your content after this line -->
+
+&nbsp;
+
+### In-Class Notes
+
+```{r}
+data(WorldCities, package = "DataComputing")
+select <- WorldCities %>% 
+  select(name)
+```
+
+&nbsp;
+
+#### Some Data Verbs
+
+select()
+```{r}
+select <- WorldCities %>% 
+  select(name)
+```
+
+mutate()
+```{r}
+m <- WorldCities %>% 
+  mutate(spop = sqrt(population))
+```
+
+select() + mutate()
+```{r}
+ms <- WorldCities %>%
+  mutate(spop = sqrt(population)) %>% 
+  select(name)
+```
+
+transmute()
+```{r}
+WorldCities %>% 
+  transmute(spop = sqrt(population)) -> transm
+```
+
+grepl()
+```{r}
+vowel <- BabyNames %>% 
+  mutate(with_vowel = grepl("^[AEIOU]", name))
+```
+
+Example) vowel12
+```{r}
+vowel2 <- vowel %>% 
+  group_by(year) %>%
+  summarise(total_w_vowel = sum(with_vowel), total_names = n()) %>% 
+  mutate(fraction = total_w_vowel / total_names) %>% 
+  select(year, fraction)
+```
+
+&nbsp;
+
+### Data Wrangling Vocabulary
+
+1. Target table
+1. Two questions to ask
+
+    + Are the cases different?
+    + Are the variables different?
+
+&nbsp;
+
+### Functions of Functions
+
+1. Data Verb takes as an input a data table -> data table
+1. Reduction Verbs takes as an input variable -> number
+1. Transformation Verb takes as an input variable -> variable
+
+    + Rank Transformations: "find the largest...", "Find the three largest", "Find the smallest within each group"
+    + Lead and lag transformations
+    + Times and Dates: transform text dates into an R type with numerical properties
+    + Lead and lag transformations
+    + Lead and lag transformations

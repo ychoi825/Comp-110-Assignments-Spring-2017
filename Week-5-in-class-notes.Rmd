@@ -1,0 +1,152 @@
+---
+title: '**Week 5: In Class Notes**'
+author: "Yunjae Choi"
+date: "March 15, 2017"
+output: html_document
+---
+
+!!! doesn't knit
+
+<!-- leave this material as is -->
+Compiled on `r date()`.
+
+```{r include = FALSE}
+library(DataComputing)
+library(dplyr)
+```
+<!-- put your content after this line -->
+
+&nbsp;
+&nbsp;
+
+### OrdwayBirds - `left_join`, `gather`, `tally`
+```{r}
+data(OrdwayBirds, package = "DataComputing")
+load("~/Comp-110-Assignments-Spring-2017/Data Sets/Birds_cleaningData.Rda")
+```
+
+&nbsp;
+
+##### Assign a Different Name
+```{r}
+Birds <- OrdwayBirds
+```
+
+&nbsp;
+
+##### `left_join`
+```{r}
+Birds %>% 
+  left_join(Cleaned_species)
+```
+
+&nbsp;
+
+##### `left_join` and `group_by` + `tally`
+```{r}
+Birds %>% 
+  left_join(Cleaned_species) %>% 
+  group_by(SpeciesNameCleaned) %>%
+  tally() 
+```
+
+&nbsp;
+
+##### `left_join` and `group_by` + `tally` and `arrange(desc(n))`
+
+```{r}
+Birds %>% 
+  left_join(Cleaned_species) %>% 
+  group_by(SpeciesNameCleaned) %>%
+  tally() %>%
+  arrange(desc(n))
+```
+
+&nbsp;
+
+##### Preparing Cleaned_species Data Set
+```{r}
+# Cleaned_species <- read.csv(file.choose(), stringsAsFactors = FALSE)
+# View(Cleaned_species)
+```
+
+```{r}
+load("C:\\Users\\Diana Choi\\Documents\\Comp-110-Assignments-Spring-2017\\Data Sets\\Library-small.rda")
+Cleaned_species <- Cleaned_species %>% select(-X)
+save(Cleaned_species, file = "Class_cleaning_data.Rda")
+View(Birds)
+```
+
+&nbsp;
+
+#### _Summary of Important Functions_
+
+##### `left_join`
+
+return all rows from x, and all columns from x and y. Rows in x with no match in y will have NA values in the new columns. If there are multiple matches between x and y, all combinations of the matches are returned (x and y are tables to join).
+
+        left_join(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...)
+
+```{r}
+foo <- Birds %>% 
+  left_join(Cleaned_species, by = c(SpeciesName = "SpeciesName"))
+```
+
+&nbsp;
+
+##### `spread`
+
+* Spread a key-value pair across multiple columns.
+* narrow -> wide (whereas `gather` is wide -> narrow)
+
+        spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE, sep = NULL)
+
+```{r}
+ByName <- BabyNames %>% 
+  group_by(name, sex) %>% 
+  summarise(total = sum(count))
+nrow(BabyNames)
+head(ByName)
+```
+
+```{r}
+BySex <- ByName %>% 
+  tidyr::spread(key = sex, total)
+head(BySex)
+```
+
+&nbsp;
+
+#### _Some More Practice_
+
+1. 
+```{r}
+BySex <- BySex %>%
+  filter(F>1000, M>1000)
+head(BySex)
+```
+
+2.
+```{r}
+BySex <- BySex %>%
+  mutate(ratio = F/M)
+head(BySex)
+```
+
+&nbsp;
+
+#### _Some More Practice with Graphing_
+
+1. 
+```{r}
+ggplot(BySex, aes(x = ratio)) + geom_density()
+```
+
+2. 
+```{r}
+ggplot(BySex, aes(x = log(ratio))) + geom_density()
+```
+
+
+
+

@@ -1,4 +1,4 @@
-# Week 3 Project
+# **Week 3 Project**
 
 ## Yunjae Choi
 
@@ -17,21 +17,29 @@ library(DataComputing)
 Considering each of the above graphics in turn, figure out:
 
 * What mode of graphic is it? (e.g. density plot, scatter plot, bar plot, …)
-    + density plot  
+
+        density plot  
+
 &nbsp;
   
 * What variables from the respective data tables are involved?  
-    + bmi, sex, pregnancy (yes/ no)  
+
+        bmi, sex, pregnancy (yes/ no)  
+
 &nbsp;
   
 * What role each of those variables plays in the graphic?  
-    + pregnancy - divided into two layers
-    + sex - using color codes (aesthetics)
-    + density plot of bmi depending on sex and preg  
+
+        pregnancy - divided into two layers
+        sex - using color codes (aesthetics)
+        density plot of bmi depending on sex and preg  
+        
 &nbsp;
   
 * In Figure 2, why is there no data variable being used for the $y$-axis?  
-    + same as the one in the left  
+    
+        same as the one in the left  
+
 &nbsp;
 &nbsp;
 
@@ -53,7 +61,7 @@ ggplot(data = NCHS, aes(x = weight)) + geom_density(aes(color = "red")) + facet_
 #### Diamonds
 
 1. Which color diamonds seem to be largest on average (in terms of carats)?  
-    * J is the largest on average
+        J is the largest on average
 
 ```{r}
 diamonds %>% 
@@ -65,7 +73,8 @@ diamonds %>%
 
 
 2. Which clarity of diamonds has the largest average “table” per carat?  
-    * Il
+
+        Il
 
 ```{r}
 diamonds %>% 
@@ -100,10 +109,7 @@ Minneapolis2013 %>%
 
 
 
-How many ballots are marked “undervote” 
-
-
-in First choice selections?
+How many ballots are marked “undervote” in First choice selections?
 
 ```{r}
 Minneapolis2013 %>% 

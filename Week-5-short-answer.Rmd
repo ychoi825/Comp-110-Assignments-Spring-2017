@@ -1,6 +1,6 @@
 # Week 5 Short Answer Questions
 
-## Your name should appear here!
+## Yunjae Choi
 
 <!-- leave this material as is -->
 Compiled on `r date()`.
@@ -10,4 +10,169 @@ library(DataComputing)
 ```
 <!-- put your content after this line -->
 
-Here is my content!
+!!! doesnt knit
+
+&nbsp;    
+&nbsp;    
+
+### Chapter 10
+    
+##### Problem 10.1
+
+We are trying to joing two data tables together. That's why we need to feed in the two data tables as the arguments inside the functions. In a chaining syntax, since only one can be passed into the verb, the other must be included as an argument inside the parentheses.
+
+&nbsp;    
+
+##### Problem 10.2
+
+Not all the cases in the demographics table are contained in the geographic table, and there are cases in the geographic table that are not in the demographic table. One of the purposes of the join family of data verbs is to handle such missing or extra cases in the tables being combined.
+
+&nbsp;    
+
+##### Problem 10.3
+
+1. Data Table B
+
+        tableB  %>%
+        mutate(diff = Y2001 - Y2000)
+
+&nbsp;
+
+2. Data Table C. Would make it easy to join() the country/continent data. Then finding the sum for each continent in each year could be accomplished with group_by() and summarise()
+
+        tableC %>%
+        left_join( ContinentData ) %>%
+        group_by( Continent, Year ) %>%
+        summarise( total = sum( Value ) )
+
+&nbsp;    
+&nbsp;    
+
+### Chapter 11
+
+##### Problem 11.1
+
+a.  
+
+    Version 1: number of babies named Harrisons, Roderick and others for each sex in year 1912 and 2012
+
+&nbsp;    
+
+    Version 2: number of female and male babies named Harrison, Roderick, and others in year 1912 and 2012. Specifically, `spread` was used to spread "sex" into two columns, "M" and "F."
+
+&nbsp;    
+
+    Version 3: number of female and male babies named Harrison, Roderick, and others in year 1912 and 2012 (presented differently). Specifically, `spread` was used to spread "year" into two columns, 1912 and 2012. 
+
+&nbsp;    
+
+b. 
+
+    Version 1 is narrow, and version 2 is wide.
+    
+&nbsp;    
+
+c. 
+
+    The "key" variable is "sex."
+
+&nbsp;    
+
+d. 
+
+    Because although the sex variable from version one can have either M or F, if M and F are being used as variables, then they must be mutually exclusive (can't be both female and male).
+    
+    
+&nbsp;    
+
+e. 
+
+    There are two main opposite data verbs used to convert Version 2 to Version 3. First, in terms of the variable "sex," one can use the data verb `gather` to make the table from wide to narrow. Version 3 contains the key variable "sex" and value variables "M" or "F." In terms of the variable "year," the data verb `spread` was used on the variable "year," the key variable, to divide its values, 1912 and 2012, into two different columns.
+    
+    
+&nbsp;    
+
+f. 
+
+    year.
+    
+
+##### Problem 11.3
+
+a. 
+
+    A vs. C: A is wide and C is narrow.
+    
+&nbsp;    
+
+b. 
+
+    B vs. C: B is wide and C is narrow.
+
+&nbsp;    
+
+c. *error in the book; he might have meant A vs. B*
+
+    A vs. B: A is narrower in terms of year and wider in terms of country compared to B.
+
+&nbsp;    
+
+##### Problem 11.4
+
+![A picture]("C:\\Users\\Diana Choi\\Documents\\Comp-110-Assignments-Spring-2017\\Week-5-short-answer-picture.Rmd")
+
+```{r}
+load(url("http://tiny.cc/dcf/MeasTreatTables.rda"))
+```
+
+```{r}
+mt <- Measurements %>%
+  left_join(Treatments, by = "subject") %>%
+  mutate(when = ifelse(treatment_date < date, "after", "before"))
+```
+
+### Order variables
+```{r}
+mt <- Measurements %>%
+  left_join(Treatments, by = "subject") %>%
+  select(what, subject, date, treatment_date) %>%
+  mutate(when = ifelse(treatment_date < date, "after", "before"))
+head(mt)
+```
+
+
+
+&nbsp;    
+
+##### Problem 11.5
+
+##### Load
+```{r}
+# "http://tiny.cc/dcf/MeasTreatTables.rda" %>%
+# url() %>% load()
+# load("C:/Users/Diana Choi/Downloads/MeasTreatTables.rda")
+# View(Measurements)
+```
+
+Your task: Using the Measurements and Treatment tables, reconstruct Table 11.3.
+
+
+(Hint: the dates in both Measurements and Treatments are stored in a way that you can use the numerical comparison function > to determine whether one date is after another.)
+
+
+pg.95
+
+&nbsp;    
+
+
+```{r}
+names(Measurements)
+head(Measurements)
+Measurements %>%
+  left_join(Treatments) %>%
+  mutate(when = ifelse((date < treatment_date), "before", "after")) %>%
+  tidyr::spread(key = what, value = value)
+```
+
+
+

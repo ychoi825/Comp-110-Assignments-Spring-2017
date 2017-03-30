@@ -120,15 +120,18 @@ $(document).ready(function () {
 
 
 <div id="week-2-short-answer-questions" class="section level1">
-<h1>Week 2 Short Answer Questions</h1>
+<h1><strong>Week 2 Short Answer Questions</strong></h1>
 <div id="yunjae-choi" class="section level2">
 <h2>Yunjae Choi</h2>
 <!-- leave this material as is -->
-<p>Compiled on Tue Feb 14 21:36:46 2017.</p>
+<p>Compiled on Tue Mar 14 22:47:58 2017.</p>
 <!-- put your content after this line -->
-<div id="section" class="section level3">
-<h3>1.1, 1.2, 1.4, 1.5</h3>
-<p>1.1</p>
+<p> <br />
+ </p>
+<div id="chapter-1" class="section level3">
+<h3>Chapter 1</h3>
+<div id="problem-1.1" class="section level5">
+<h5>Problem 1.1</h5>
 <ol style="list-style-type: lower-alpha">
 <li>3</li>
 <li>2</li>
@@ -136,92 +139,113 @@ $(document).ready(function () {
 <li>1</li>
 <li>2</li>
 </ol>
-<p>1.2</p>
-<p>The table is not “tidy” in that the cases within each of the variables are not in the same format. They have to be in a uniform format in order for R to do operations on our commands. For example, all names can be in one form: “Last name, First name,” or “First name Last name,” but not both.</p>
-<p>1.4</p>
+<p> </p>
+</div>
+<div id="problem-1.2" class="section level5">
+<h5>Problem 1.2</h5>
+<pre><code>The table is not &quot;tidy&quot; in that the cases within each of the variables are not in the same format. They have to be in a uniform format in order for R to do operations on our commands. For example, all names can be in one form: &quot;Last name, First name,&quot; or &quot;First name Last name,&quot; but not both.</code></pre>
+<p> </p>
+</div>
+<div id="problem-1.4" class="section level5">
+<h5>Problem 1.4</h5>
 <ol style="list-style-type: decimal">
-<li>What are the variables in each table?</li>
-</ol>
+<li><p>What are the variables in each table?</p>
 <ul>
 <li>Data Table A: Year, Algeria, Brazil, Columbia</li>
 <li>Data Table B: Country, Y2000, Y2001</li>
 <li>Data Table C: Country, Year, Value</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li>What is the meaning of a case for each table?</li>
+</ul></li>
 </ol>
+<p> </p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>What is the meaning of a case for each table?</p>
 <ul>
 <li>Data Table A: A year</li>
 <li>Data Table B: A country</li>
 <li>Data Table C: A country in a year</li>
-</ul>
-<p>1.5</p>
-<ol style="list-style-type: decimal">
-<li>How many variables are there? 8</li>
-<li>What do the cases represent? Airport names in FAA airport code</li>
-<li>For each variable, make a reasonable guess about whether the values will be numerical or quantitative.</li>
+</ul></li>
 </ol>
-<ul>
-<li>faa - categorical</li>
-<li>name - categorical</li>
-<li>lat - quantitative</li>
-<li>lon - quantitative</li>
-<li>alt - quantitative</li>
-<li>tz - quantitative</li>
-<li>dst - categorical</li>
-<li>tzone - categorical</li>
-</ul>
-<pre class="r"><code># install.packages(&quot;nycflights13&quot;)
-# library(&quot;nycflights13&quot;)
-data(data = airports, package = &quot;nycflights13&quot;)
-ncol(airports)</code></pre>
-<pre><code>## [1] 8</code></pre>
-<pre class="r"><code>variable.names(airports)</code></pre>
-<pre><code>## [1] &quot;faa&quot;   &quot;name&quot;  &quot;lat&quot;   &quot;lon&quot;   &quot;alt&quot;   &quot;tz&quot;    &quot;dst&quot;   &quot;tzone&quot;</code></pre>
-<pre class="r"><code>head(airports)</code></pre>
-<pre><code>## # A tibble: 6 × 8
-##     faa                           name      lat       lon   alt    tz
-##   &lt;chr&gt;                          &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;
-## 1   04G              Lansdowne Airport 41.13047 -80.61958  1044    -5
-## 2   06A  Moton Field Municipal Airport 32.46057 -85.68003   264    -6
-## 3   06C            Schaumburg Regional 41.98934 -88.10124   801    -6
-## 4   06N                Randall Airport 41.43191 -74.39156   523    -5
-## 5   09J          Jekyll Island Airport 31.07447 -81.42778    11    -5
-## 6   0A9 Elizabethton Municipal Airport 36.37122 -82.17342  1593    -5
-## # ... with 2 more variables: dst &lt;chr&gt;, tzone &lt;chr&gt;</code></pre>
+<p> </p>
 </div>
-<div id="section-1" class="section level3">
-<h3>2.2, 2.3, 2.4, 2.6, 2.7, 2.8, 2.9, 2.10</h3>
-<p>2.2</p>
-<p>file name</p>
-<p>2.3</p>
+<div id="problem-1.5" class="section level5">
+<h5>Problem 1.5</h5>
+<ol style="list-style-type: decimal">
+<li><p>How many variables are there?</p>
+<pre><code>8</code></pre></li>
+<li><p>What do the cases represent?</p>
+<pre><code>Airport names in FAA airport code</code></pre></li>
+<li><p>For each variable, make a reasonable guess about whether the values will be numerical or quantitative.</p>
+<pre><code>* faa - categorical
+* name - categorical
+* lat - quantitative
+* lon - quantitative
+* alt - quantitative
+* tz - quantitative
+* dst - categorical
+* tzone - categorical</code></pre></li>
+</ol>
+<p> </p>
+</div>
+<div id="problem-2.2" class="section level5">
+<h5>Problem 2.2</h5>
+<pre><code>file name</code></pre>
+<p> </p>
+</div>
+<div id="problem-2.3" class="section level5">
+<h5>Problem 2.3</h5>
 <pre class="r"><code># install.packages(&quot;mosaicData&quot;)
-data(data = CPS85, package = &quot;mosaicData&quot;)
+# data(data = CPS85, package = &quot;mosaicData&quot;)
 # help(CPS85, package = &quot;mosaicData&quot;)</code></pre>
-<p>The Current Population Survey (CPS) is used to supplement census information between census years. These data consist of a random sample of persons from the CPS85, with information on wages and other characteristics of the workers, including sex, number of years of education, years of work experience, occupational status, region of residence and union membership.</p>
-<p>2.4</p>
-<p>the data name cannot be the same as the package name. A package contains a number of data. The package here should be where NHANES comes from.</p>
-<p>2.6</p>
+<pre><code>    The Current Population Survey (CPS) is used to supplement census information between census years. These data consist of a random sample of persons from the CPS85, with information on wages and other characteristics of the workers, including sex, number of years of education, years of work experience, occupational status, region of residence and union membership.</code></pre>
+<p> </p>
+</div>
+<div id="problem-2.4" class="section level5">
+<h5>Problem 2.4</h5>
+<pre><code>    the data name cannot be the same as the package name. A package contains a number of data. The package here should be where NHANES comes from.</code></pre>
+<p> </p>
+</div>
+<div id="problem-2.6" class="section level5">
+<h5>Problem 2.6</h5>
 <ol style="list-style-type: decimal">
 <li>OK</li>
-<li>Wrong</li>
-<li>Wrong</li>
+<li><p>Wrong</p>
+<pre><code>a dash (-) is not one of the allowed punctuation marks in an object name.</code></pre></li>
+<li><p>Wrong</p>
+<pre><code>Being in quotes, &quot;MyData&quot; is a constant, not an object name.</code></pre></li>
 <li>OK</li>
-<li>Wrong</li>
+<li><p>Wrong</p>
+<pre><code>a space is not allowed in an object name</code></pre></li>
 <li>OK</li>
 <li>OK</li>
-<li>Wrong</li>
-<li>Wrong</li>
+<li><p>OK</p></li>
+<li><p>Wrong</p>
+<pre><code>parentheses not allowed </code></pre></li>
 </ol>
-<p>2.7</p>
+<p> </p>
+</div>
+<div id="problem-2.7" class="section level5">
+<h5>Problem 2.7</h5>
 <p>Installing done above.</p>
-<pre class="r"><code>data(flights, package = &quot;nycflights13&quot;)
-ncol(flights)</code></pre>
+<pre class="r"><code>data(flights, package = &quot;nycflights13&quot;)</code></pre>
+<ol style="list-style-type: decimal">
+<li>How many variables are there?</li>
+</ol>
+<pre class="r"><code>ncol(flights)</code></pre>
 <pre><code>## [1] 19</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>How many cases are there?</li>
+</ol>
 <pre class="r"><code>nrow(flights)</code></pre>
 <pre><code>## [1] 336776</code></pre>
-<pre class="r"><code># View(flights)
-str(flights)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p>What is the meaning of a case? (“Meaning” refers to the kind of entity, for instance, “airport” or “airline” or “date”. Hint: the case in flights is not any of these things.) On-time data for all flights that departed NYC (i.e. JFK, LGA or EWR) in 2013.</p>
+<pre><code>To look up the meanings of variables:</code></pre></li>
+</ol>
+<pre class="r"><code># Help(flights)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>For each variable, is the variable quantitative or categorical?</li>
+</ol>
+<pre class="r"><code>str(flights)</code></pre>
 <pre><code>## Classes 'tbl_df', 'tbl' and 'data.frame':    336776 obs. of  19 variables:
 ##  $ year          : int  2013 2013 2013 2013 2013 2013 2013 2013 2013 2013 ...
 ##  $ month         : int  1 1 1 1 1 1 1 1 1 1 ...
@@ -242,47 +266,60 @@ str(flights)</code></pre>
 ##  $ hour          : num  5 5 5 5 6 5 6 6 6 6 ...
 ##  $ minute        : num  15 29 40 45 0 58 0 0 0 0 ...
 ##  $ time_hour     : POSIXct, format: &quot;2013-01-01 05:00:00&quot; &quot;2013-01-01 05:00:00&quot; ...</code></pre>
-<pre class="r"><code># class(flights$time_hour) # this can be considered a string</code></pre>
-<ol style="list-style-type: decimal">
-<li>How many variables are there? 19</li>
-<li>How many cases are there? 336776</li>
-<li>What is the meaning of a case? (“Meaning” refers to the kind of entity, for instance, “airport” or “airline” or “date”. Hint: the case in flights is not any of these things.) On-time data for all flights that departed NYC (i.e. JFK, LGA or EWR) in 2013.</li>
-<li>For each variable, is the variable quantitative or categorical?</li>
-</ol>
-<p>All “int” and “num” are quantitative and “chr” are categorical. $ year : int 2013 2013 2013 2013 2013 2013 2013 2013 2013 2013 … $ month : int 1 1 1 1 1 1 1 1 1 1 … $ day : int 1 1 1 1 1 1 1 1 1 1 … $ dep_time : int 517 533 542 544 554 554 555 557 557 558 … $ sched_dep_time: int 515 529 540 545 600 558 600 600 600 600 … $ dep_delay : num 2 4 2 -1 -6 -4 -5 -3 -3 -2 … $ arr_time : int 830 850 923 1004 812 740 913 709 838 753 … $ sched_arr_time: int 819 830 850 1022 837 728 854 723 846 745 … $ arr_delay : num 11 20 33 -18 -25 12 19 -14 -8 8 … $ carrier : chr “UA” “UA” “AA” “B6” … $ flight : int 1545 1714 1141 725 461 1696 507 5708 79 301 … $ tailnum : chr “N14228” “N24211” “N619AA” “N804JB” … $ origin : chr “EWR” “LGA” “JFK” “JFK” … $ dest : chr “IAH” “IAH” “MIA” “BQN” … $ air_time : num 227 227 160 183 116 150 158 53 140 138 … $ distance : num 1400 1416 1089 1576 762 … $ hour : num 5 5 5 5 6 5 6 6 6 6 … $ minute : num 15 29 40 45 0 58 0 0 0 0 … $ time_hour : POSIXct, format: “2013-01-01 05:00:00” “2013-01-01 05:00:00” “2013-01-01 05:00:00” “2013-01-01</p>
+<pre class="r"><code>class(flights$time_hour) # this can be considered a string</code></pre>
+<pre><code>## [1] &quot;POSIXct&quot; &quot;POSIXt&quot;</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li>For the variables air_time and distance, what are the units? minutes</li>
+<li><p>For the variables air_time and distance, what are the units?</p>
+<pre><code>minutes</code></pre></li>
 </ol>
-<p>2.8</p>
-<p>“–&gt;” indicates to what it should be changed.</p>
+<pre class="r"><code># Help(flights)</code></pre>
+<p> </p>
+</div>
+<div id="problem-2.8" class="section level5">
+<h5>Problem 2.8</h5>
+<p>“&lt;–” indicates to what it should be changed.</p>
 <ol style="list-style-type: lower-alpha">
-<li>ralph &lt;- sqrt 10 3</li>
-<li>ralph2 &lt;– “Hello to you!” 1</li>
-<li>3ralph &lt;- “Hello to you!” 4</li>
-<li>ralph4 &lt;- “Hello to you! 2</li>
-<li>ralph5 &lt;- date() 5</li>
+<li><p>ralph &lt;- sqrt 10</p>
+<pre><code>3</code></pre></li>
+<li><p>ralph2 &lt;– “Hello to you!”</p>
+<pre><code>1</code></pre></li>
+<li><p>3ralph &lt;- “Hello to you!”</p>
+<pre><code>4</code></pre></li>
+<li><p>ralph4 &lt;- “Hello to you!</p>
+<pre><code>2</code></pre></li>
+<li><p>ralph5 &lt;- date()</p>
+<pre><code>5</code></pre></li>
 </ol>
-<p>2.9</p>
+<p> </p>
+</div>
+<div id="problem-2.9" class="section level5">
+<h5>Problem 2.9</h5>
 <ol style="list-style-type: decimal">
 <li>“.” and “_&quot;</li>
 <li>All of them</li>
 </ol>
-<p>2.10</p>
+<p> </p>
+</div>
+<div id="problem-2.10" class="section level5">
+<h5>Problem 2.10</h5>
+<ol style="list-style-type: decimal">
+<li></li>
+</ol>
 <pre class="r"><code>data(data = CountryData, package = &quot;DataComputing&quot;)
 ncol(CountryData)</code></pre>
 <pre><code>## [1] 76</code></pre>
-<ol style="list-style-type: decimal">
-<li>76</li>
-</ol>
-<pre class="r"><code># help(NCHS, package = &quot;DataComputing&quot;)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>mass of trunk fat</li>
+</ol>
+<pre class="r"><code># help(NCHS, package = &quot;DataComputing&quot;)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li></li>
 </ol>
 <pre class="r"><code>data(data = WorldCities, package = &quot;DataComputing&quot;)
 nrow(WorldCities)</code></pre>
 <pre><code>## [1] 23018</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>23018</li>
+<ol start="4" style="list-style-type: decimal">
+<li>Count</li>
 </ol>
 <pre class="r"><code>data(data = BabyNames, package = &quot;DataComputing&quot;)
 head(BabyNames)</code></pre>
@@ -293,19 +330,20 @@ head(BabyNames)</code></pre>
 ## 4 Elizabeth   F  1939 1880
 ## 5    Minnie   F  1746 1880
 ## 6  Margaret   F  1578 1880</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Count</li>
+<ol start="5" style="list-style-type: decimal">
+<li></li>
 </ol>
 <pre class="r"><code>data(RegisteredVoters, package = &quot;DataComputing&quot;)
 levels(RegisteredVoters$party)</code></pre>
 <pre><code>## [1] &quot;DEM&quot; &quot;LIB&quot; &quot;REP&quot; &quot;UNA&quot;</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>“DEM” “LIB” “REP” “UNA”</li>
-</ol>
+<p> </p>
 </div>
-<div id="section-2" class="section level3">
-<h3>3.1, 3.2, 3.3, 3.4, 3.5, 3.6</h3>
-<p>3.1 data frame (fireplace)</p>
+<div id="problem-3.1" class="section level5">
+<h5>Problem 3.1</h5>
+<ol style="list-style-type: decimal">
+<li><p>data frame (fireplace)</p>
+<p>Put it at the start of a chain, e.g. fireplace %&gt;% nrow()</p></li>
+</ol>
 <pre class="r"><code>fireplace &lt;- data.frame(c(1,2,3,4,5), row.names = 1,4,36)
 fireplace</code></pre>
 <pre><code>##   X4 X36
@@ -314,20 +352,40 @@ fireplace</code></pre>
 ## 3  4  36
 ## 4  4  36
 ## 5  4  36</code></pre>
-<p>a function (b) In this case, “sqrt” is a function</p>
-<pre class="r"><code>b = sqrt(4)</code></pre>
-<p>the name of a named argument (c) “BabyNames” is the name of a named argument, “data”</p>
-<pre class="r"><code># data(data = BabyNames, package = &quot;DataComputing&quot;)</code></pre>
-<p>a variable (d) “sex” in “BabyNames”</p>
-<p>3.2 “Result &lt;- %&gt;% filter(BabyNames, name==”Prince“)” is illegitimate because there’s no data frame that the filter function is being applied to. It should be</p>
+<p> </p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>a function (b)</p>
+<p>In this case, “sqrt” is a function; Follow it by an open parenthesis, fileplace(</p></li>
+</ol>
+<p> </p>
+<ol start="3" style="list-style-type: decimal">
+<li><p>the name of a named argument (c)</p>
+<p>“BabyNames” is the name of a named argument, “data”; Follow it by = inside the parentheses of a function, e.g., fun(fileplace = 7)</p></li>
+</ol>
+<p> </p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>a variable (d)</p>
+<p>“sex” in “BabyNames”; place it inside the parentheses of a function, but not in the position of the name of a named argument, e.g., fun(fileplace) or fun(x = fireplace)</p></li>
+</ol>
+<p> </p>
+</div>
+<div id="problem-3.2" class="section level5">
+<h5>Problem 3.2</h5>
+<pre><code>&quot;Result &lt;- %&gt;% filter(BabyNames, name==&quot;Prince&quot;)&quot; is illegitimate because there's no data frame that the filter function is being applied to. It should be</code></pre>
 <pre class="r"><code>library(&quot;magrittr&quot;)
 Result &lt;- 
   BabyNames %&gt;% 
   filter(name == &quot;Prince&quot;)</code></pre>
-<p>3.3</p>
-<p>A package contains many data set. Therefore, NHANES cannot be the package for this particular data set, “NHANES”</p>
+<p> </p>
+</div>
+<div id="problem-3.3" class="section level5">
+<h5>Problem 3.3</h5>
+<pre><code>A package contains many data set. Therefore, NHANES cannot be the package for this particular data set, &quot;NHANES&quot;</code></pre>
 <pre class="r"><code># help(NHANES, package &lt;- &quot;NHANES&quot;)</code></pre>
-<p>3.4</p>
+<p> </p>
+</div>
+<div id="problem-3.4" class="section level5">
+<h5>Problem 3.4</h5>
 <pre class="r"><code># BabyNames = data(data = BabyNames, package = &quot;DataComputing&quot;)
 
 Princes &lt;-
@@ -363,7 +421,10 @@ Princes %&gt;%
 <li>a</li>
 <li>d</li>
 </ol>
-<p>3.5</p>
+<p> </p>
+</div>
+<div id="problem-3.5" class="section level5">
+<h5>Problem 3.5</h5>
 <pre class="r"><code>data(msleep, package = &quot;ggplot2&quot;)
 # help(msleep)
 nrow(msleep)</code></pre>
@@ -374,31 +435,49 @@ nrow(msleep)</code></pre>
 <li>number of observations in the data</li>
 <li>carnivore, omnivore or herbivore</li>
 </ol>
-<p>3.6 d</p>
+<p> </p>
 </div>
-<div id="section-3" class="section level3">
-<h3>4.1, 4.2, 4.3, 4.4, 4.5</h3>
-<p><em>one</em></p>
-<p>italics</p>
-<p><strong>two</strong></p>
-<p>bold face</p>
-<ul>
-<li>three</li>
-</ul>
-<p>bullet point</p>
+<div id="problem-3.6" class="section level5">
+<h5>Problem 3.6</h5>
+<pre><code>Statement (c) is different. Rather than calculating the total number of births (using sum()), it finds the mean number of births across all the cases in each year/sex group.</code></pre>
+<p> <br />
+ </p>
+</div>
+</div>
+<div id="chapter-4" class="section level3">
+<h3>Chapter 4</h3>
+<p> </p>
+<div id="problem-4.1" class="section level5">
+<h5>Problem 4.1</h5>
+<ol style="list-style-type: decimal">
+<li>italics: <em>one</em></li>
+<li>bold face: <strong>two</strong></li>
+<li><p>bullet point:</p>
+<pre><code>* three</code></pre></li>
+<li><p>biggest size of the headings</p></li>
+</ol>
+</div>
 </div>
 </div>
 </div>
 <div id="four" class="section level1">
 <h1>Four</h1>
-<p>biggest size of the headings</p>
+<ol start="5" style="list-style-type: decimal">
+<li>it would just print out ‘five’</li>
+</ol>
 <p><code>five</code></p>
-<p>it would just print out ‘five’</p>
+<ol start="6" style="list-style-type: decimal">
+<li>“Six” that is of a smaller size than the biggest size “#”</li>
+</ol>
 <div id="six" class="section level2">
 <h2>Six</h2>
-<p>“Six” that is of a smaller size than the biggest size “#”</p>
-<p><a href="http://tiny.cc/dcf/index.html">seven</a> text “seven” that takes us to the following link</p>
-<p>4.2</p>
+<ol start="7" style="list-style-type: decimal">
+<li>text “seven” that takes us to the following link</li>
+</ol>
+<p><a href="http://tiny.cc/dcf/index.html">seven</a></p>
+<p> </p>
+<div id="problem-4.2" class="section level5">
+<h5>Problem 4.2</h5>
 <ol style="list-style-type: decimal">
 <li>not correct “`” mark</li>
 <li>not correct “`” mark</li>
@@ -406,14 +485,20 @@ nrow(msleep)</code></pre>
 <li>need parallel marks (in two lines)</li>
 <li>need 3 “`” marks each in the beginnning and end</li>
 </ol>
-<p>4.3</p>
+<p> </p>
+</div>
+<div id="problem-4.3" class="section level5">
+<h5>Problem 4.3</h5>
+</div>
 <div id="an-introduction" class="section level3">
 <h3>An Introduction</h3>
 <p>Arithmetic is <em>easy</em>! For instance</p>
 <pre class="r"><code>3 + 2</code></pre>
 <pre><code>## [1] 5</code></pre>
 <p>The above heading will be in bigger font than the rest. The text “easy” will be italicized. 3 + 2 will appear in the calculated form 5.</p>
-<p>4.4</p>
+<p> </p>
+<div id="problem-4.4" class="section level5">
+<h5>Problem 4.4</h5>
 <ol style="list-style-type: decimal">
 <li>a possible URL</li>
 <li>a possible file</li>
@@ -422,7 +507,12 @@ nrow(msleep)</code></pre>
 <li>neither</li>
 <li>a possible file</li>
 </ol>
-<p>4.5 Done on a separate file Birds.Rmd</p>
+<p> </p>
+</div>
+<div id="problem-4.5" class="section level5">
+<h5>Problem 4.5</h5>
+<p>Done on a separate file Birds.Rmd</p>
+</div>
 </div>
 </div>
 </div>

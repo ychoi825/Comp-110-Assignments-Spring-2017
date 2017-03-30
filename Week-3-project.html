@@ -120,40 +120,38 @@ $(document).ready(function () {
 
 
 <div id="week-3-project" class="section level1">
-<h1>Week 3 Project</h1>
+<h1><strong>Week 3 Project</strong></h1>
 <div id="yunjae-choi" class="section level2">
 <h2>Yunjae Choi</h2>
 <!-- leave this material as is -->
-<p>Compiled on Mon Mar 13 15:51:50 2017.</p>
+<p>Compiled on Tue Mar 14 22:50:07 2017.</p>
 <!-- put your content after this line -->
 <p> </p>
 <div id="the-basics" class="section level4">
 <h4>The Basics</h4>
 <p>Considering each of the above graphics in turn, figure out:</p>
 <ul>
-<li>What mode of graphic is it? (e.g. density plot, scatter plot, bar plot, …)
-<ul>
-<li>density plot<br />
- </li>
-</ul></li>
-<li>What variables from the respective data tables are involved?
-<ul>
-<li>bmi, sex, pregnancy (yes/ no)<br />
- </li>
-</ul></li>
-<li>What role each of those variables plays in the graphic?
-<ul>
-<li>pregnancy - divided into two layers</li>
-<li>sex - using color codes (aesthetics)</li>
-<li>density plot of bmi depending on sex and preg<br />
- </li>
-</ul></li>
-<li>In Figure 2, why is there no data variable being used for the <span class="math inline">\(y\)</span>-axis?
-<ul>
-<li>same as the one in the left<br />
-   </li>
-</ul></li>
+<li><p>What mode of graphic is it? (e.g. density plot, scatter plot, bar plot, …)</p>
+<pre><code>density plot  </code></pre></li>
 </ul>
+<p> </p>
+<ul>
+<li><p>What variables from the respective data tables are involved?</p>
+<pre><code>bmi, sex, pregnancy (yes/ no)  </code></pre></li>
+</ul>
+<p> </p>
+<ul>
+<li><p>What role each of those variables plays in the graphic?</p>
+<pre><code>pregnancy - divided into two layers
+sex - using color codes (aesthetics)
+density plot of bmi depending on sex and preg  </code></pre></li>
+</ul>
+<p> </p>
+<ul>
+<li><p>In Figure 2, why is there no data variable being used for the <span class="math inline">\(y\)</span>-axis?</p>
+<pre><code>same as the one in the left  </code></pre></li>
+</ul>
+<p>   </p>
 </div>
 <div id="making-plots" class="section level4">
 <h4>Making Plots</h4>
@@ -168,10 +166,8 @@ library(ggplot2)</code></pre>
 <div id="diamonds" class="section level4">
 <h4>Diamonds</h4>
 <ol style="list-style-type: decimal">
-<li>Which color diamonds seem to be largest on average (in terms of carats)?
-<ul>
-<li>J is the largest on average</li>
-</ul></li>
+<li>Which color diamonds seem to be largest on average (in terms of carats)?<br />
+J is the largest on average</li>
 </ol>
 <pre class="r"><code>diamonds %&gt;% 
   group_by( color ) %&gt;% 
@@ -189,10 +185,8 @@ library(ggplot2)</code></pre>
 ## 6     E  0.6578667
 ## 7     D  0.6577948</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Which clarity of diamonds has the largest average “table” per carat?
-<ul>
-<li>Il</li>
-</ul></li>
+<li><p>Which clarity of diamonds has the largest average “table” per carat?</p>
+<pre><code>Il</code></pre></li>
 </ol>
 <pre class="r"><code>diamonds %&gt;% 
   group_by( clarity ) %&gt;% 
@@ -232,8 +226,7 @@ library(ggplot2)</code></pre>
 ## 3        MARK ANDREW 12757
 ## 4          undervote 10598
 ## 5 JACKIE CHERRYHOMES  6470</code></pre>
-<p>How many ballots are marked “undervote”</p>
-<p>in First choice selections?</p>
+<p>How many ballots are marked “undervote” in First choice selections?</p>
 <pre class="r"><code>Minneapolis2013 %&gt;% 
   filter(First == &quot;undervote&quot;) %&gt;%
   summarise(nsum = n())</code></pre>

@@ -1,0 +1,44 @@
+---
+title: "**Week 3: In Class Notes**"
+author: "Yunjae Choi"
+date: "February 14, 2017"
+output: html_document
+---
+
+<!-- leave this material as is -->
+Compiled on `r date()`.
+
+```{r include = FALSE}
+library(DataComputing)
+library(statisticalModeling)
+library(ggplot2)
+```
+<!-- put your content after this line -->
+
+
+&nbsp;
+
+
+#### In-Class Notes
+
+```{r}
+data(CountryData, pacakge = "DataComputing")
+gf_point(data = CountryData, death~life + alpha:GDPcapita)
+```
+
+```{r}
+ggplot(data = CountryData, aes(y = death, x = life, alpha = GDPcapita)) +
+  geom_point()
+```
+
+
+
+```{r}
+Twenty <- BabyNames
+
+Twenty %>% 
+  group_by(name) %>%
+  summarise(total = n()) %>%
+  filter(total >= 100)
+```
+

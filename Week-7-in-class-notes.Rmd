@@ -1,0 +1,217 @@
+---
+title: '**Week 7: In Class Notes**'
+author: "Yunjae Choi"
+date: "March 15, 2017"
+output: html_document
+---
+
+!!! doesnt knit
+
+<!-- leave this material as is -->
+Compiled on `r date()`.
+
+```{r include = FALSE}
+library(DataComputing)
+library(dplyr)
+library(base)
+```
+<!-- put your content after this line -->
+
+&nbsp;
+&nbsp;
+
+# Macbeth
+```{r}
+macbeth_url <- "http://www.gutenberg.org/cache/epub/1129/pg1129.txt"
+macbeth_raw <- RCurl::getURL(macbeth_url)     # grabs text from a url
+```
+
+### Text Inspection: How many characters in text?
+```{r}
+class(macbeth_raw)
+length(macbeth_raw)
+nchar(macbeth_raw)      
+```
+
+```{r}
+macbeth <- strsplit(macbeth_raw, "\r\n")[[1]]
+macbeth[300:310]
+```
+
+
+
+The regular way of writing:
+
+`"^  [A-Z]{2,}\\."`
+
+`"^ {1,3}[A-Z]{2,}\\."`
+
+
+* ^ = starting at the beginning of the string
+*   = space
+* [] = set
+* {} = repeated at least two times and maybe more  
+* . = anything
+* //. = period taken literally (escape)
+  
+
+
+```{r}
+pattern <- "^  [A-Z]{2,}\\."
+macbeth_lines <- grep(pattern, macbeth, value = TRUE)
+head(macbeth_lines)
+tail(macbeth_lines)
+```
+
+  
+
+```{r}
+library(stringr)
+pattern <- "^  [A-Z]{2,}\\."
+
+characters <- 
+  grep(pattern, macbeth, value = TRUE) %>%
+  str_extract(pattern)
+
+table(characters)
+```
+
+&nbsp;
+&nbsp;
+
+
+# BabyNames
+```{r}
+data(BabyNames)
+BabyNames %>% head()
+BabyNames %>% sample_n(size = 20)
+```
+
+```{r}
+BabyNames %>% sample_n(size = 10000) -> Names
+```
+
+### Names that begin with vowels
+
+##### grepl = grep logical - boolean
+```{r}
+WithVowels <-
+  Names %>%
+  filter(grepl("^[AEIOUY]", name))
+```
+
+
+```{r}
+WithVowels <-
+  Names %>%
+  group_by(sex) %>%
+  summarise(total = sum(count))
+```
+
+
+```{r}
+BabyNames <-
+  Names %>%
+  group_by(sex) %>%
+  summarise(total = sum(count))
+```
+
+
+
+```{r}
+BabyNames %>%
+  filter(grepl("kk", name)) %>%
+  summarise(total = sum(count))
+```
+
+
+
+##### any pair of letters followed by a pair of the same letters
+```{r}
+data(BabyNames)
+BabyNames %>%
+  filter(grepl("(aa|bb|cc|dd|ee|ff|gg|hh|ii|jj|kk|ll|mm|nn|oo|pp|qq|rr|ss|tt|uu|vv|ww|xx|yy|zz){2,}", name)) %>% head
+```
+
+
+```{r}
+BabyNames %>%
+  filter(grepl("(aa|bb|cc|dd|ee|ff|gg|hh|ii|jj|kk|ll|mm|nn|oo|pp|qq|rr|ss|tt|uu|vv|ww|xx|yy|zz){3,}", name)) %>% head
+```
+
+
+```{r}
+BabyNames %>%
+  filter(grepl("(aa|bb|cc|dd|ee|ff|gg|hh|ii|jj|kk|ll|mm|nn|oo|pp|qq|rr|ss|tt|uu|vv|ww|xx|yy|zz){3,}", name)) %>% 
+  summarise(total = n())
+```
+
+
+##### ends with 3 vowels
+```{r}
+BabyNames %>%
+  filter(grepl("[aeiouy]{3}$", name)) %>% head
+```
+
+
+
+```{r}
+BabyNames %>%
+  filter(grepl("[aeiouy]{3}$", name)) %>% 
+  summarise(total = n())
+```
+
+
+
+* $ = in the end
+* | = or
+
+
+
+```{r}
+BabyNames %>%
+  filter(grepl("[aeiouy]{3}*$", name)) %>% 
+  summarise(total = n())
+```
+
+
+
+
+```{r}
+str_view_all(BabyNames, "aa")
+str_view_all(BabyNames$name, "L.*") # anything starting with L
+str_view_all(BabyNames$name, "[LD].*") # anything starting with L or D
+```
+
+
+
+
+
+
+
+
+
+# To KNOW:
+
+^, $, 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

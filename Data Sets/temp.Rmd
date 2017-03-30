@@ -1,0 +1,116 @@
+---
+title: '**Week 6: In Class Notes**'
+author: "Yunjae Choi"
+date: "March 15, 2017"
+output: html_document
+---
+
+
+## Yunjae Choi
+
+<!-- leave this material as is -->
+Compiled on `r date()`.
+
+```{r include = FALSE}
+library(DataComputing)
+```
+<!-- put your content after this line -->
+
+
+&nbsp;
+&nbsp;
+
+
+```{r cache = TRUE} 
+data_site <- 
+  "http://tiny.cc/dcf/2014-Q4-Trips-History-Data-Small.rds" 
+Trips <- readRDS(gzcon(url(data_site)))
+nrow(Trips)
+```
+
+```{r}
+ggplot(Trips, aes(x = sdate)) +
+  geom_density()
+```
+
+
+
+
+```{r}
+Trips %>% 
+  mutate(time_of_day = 
+       lubridate::hour(sdate) + 
+         lubridate::minute(sdate) / 60) %>%
+  ggplot(aes(x = time_of_day)) +
+  geom_density()
+```
+
+!!! how to insert title to each
+```{r}
+Trips %>% 
+  mutate(day_of_week = 
+       lubridate::wday(sdate)) %>%
+  ggplot(aes(x = day_of_week)) +
+  geom_density() +
+  facet_wrap(~day_of_week)
+```
+
+!!! color = NaN?
+```{r}
+Trips %>% 
+  mutate(day_of_week = 
+       lubridate::wday(sdate)) %>%
+  ggplot(aes(x = day_of_week)) +
+  geom_density(aes(fill = client, alpha = 0.5, color = NaN)) +
+  facet_wrap(~day_of_week)
+```
+
+
+
+```{r}
+Trips %>% 
+     mutate(day_of_week = 
+               lubridate::wday(sdate)) %>%
+     ggplot(aes(x = day_of_week, fill = client, alpha = 0.3)) +
+    geom_density(color = NA) +
+    facet_wrap(~day_of_week)
+```
+
+```{r}
+Trips %>% 
+     mutate(day_of_week = 
+               lubridate::wday(sdate)) %>%
+     ggplot(aes(x = day_of_week, fill = client, alpha = 0.3)) +
+    geom_density(color = NA, position = position_stack()) +
+    facet_wrap(~day_of_week)
+```
+
+```{r}
+Trips %>% 
+     mutate(day_of_week = 
+               lubridate::wday(sdate)) %>%
+     mutate(wday = ifelse(lubridate::wday(sdate) %in% c(1,7), "weekend", "weekday")) %>%
+     ggplot(aes(x = day_of_week, fill = client, alpha = 0.3)) +
+    geom_density(color = NA, position = position_stack()) +
+    facet_wrap(~wday)
+```
+
+
+This one more interesting since we can see that the weekend belongs to weekend and which weekday has the highest probability. 
+
+
+```{r}
+Trips %>% 
+     mutate(day_of_week = 
+               lubridate::wday(sdate)) %>%
+     mutate(wday = ifelse(lubridate::wday(sdate) %in% c(1,7), "weekend", "weekday")) %>%
+     ggplot(aes(x = day_of_week, fill = wday, alpha = 0.3)) +
+    geom_density(color = NA, position = position_stack()) +
+    facet_wrap(~client)
+```
+
+
+
+facet wday because we can see more directly that people tend to visit more often during the weekend.
+
+

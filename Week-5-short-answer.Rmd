@@ -10,8 +10,6 @@ library(DataComputing)
 ```
 <!-- put your content after this line -->
 
-!!! doesnt knit
-
 &nbsp;    
 &nbsp;    
 
@@ -19,7 +17,7 @@ library(DataComputing)
     
 ##### Problem 10.1
 
-We are trying to joing two data tables together. That's why we need to feed in the two data tables as the arguments inside the functions. In a chaining syntax, since only one can be passed into the verb, the other must be included as an argument inside the parentheses.
+We are want to join two data tables together, but in the chaining syntax, only one can be passed into the verb and the other is an argument inside the function. 
 
 &nbsp;    
 
@@ -119,7 +117,7 @@ c. *error in the book; he might have meant A vs. B*
 
 ##### Problem 11.4
 
-![A picture]("C:\\Users\\Diana Choi\\Documents\\Comp-110-Assignments-Spring-2017\\Week-5-short-answer-picture.Rmd")
+
 
 ```{r}
 load(url("http://tiny.cc/dcf/MeasTreatTables.rda"))
@@ -153,12 +151,6 @@ head(mt)
 # load("C:/Users/Diana Choi/Downloads/MeasTreatTables.rda")
 # View(Measurements)
 ```
-
-Your task: Using the Measurements and Treatment tables, reconstruct Table 11.3.
-
-
-(Hint: the dates in both Measurements and Treatments are stored in a way that you can use the numerical comparison function > to determine whether one date is after another.)
-
 
 pg.95
 

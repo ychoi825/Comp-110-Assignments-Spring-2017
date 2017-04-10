@@ -5,7 +5,6 @@ date: "March 15, 2017"
 output: html_document
 ---
 
-!!! doesnt knit
 
 <!-- leave this material as is -->
 Compiled on `r date()`.
@@ -14,6 +13,7 @@ Compiled on `r date()`.
 library(DataComputing)
 library(dplyr)
 library(base)
+library(stringr)
 ```
 <!-- put your content after this line -->
 
@@ -21,12 +21,12 @@ library(base)
 &nbsp;
 
 # Macbeth
-```{r}
+```{r, include = FALSE}
 macbeth_url <- "http://www.gutenberg.org/cache/epub/1129/pg1129.txt"
 macbeth_raw <- RCurl::getURL(macbeth_url)     # grabs text from a url
 ```
 
-### Text Inspection: How many characters in text?
+### Text Inspection: How many characters in text
 ```{r}
 class(macbeth_raw)
 length(macbeth_raw)
@@ -82,7 +82,7 @@ table(characters)
 
 # BabyNames
 ```{r}
-data(BabyNames)
+# data(BabyNames)
 BabyNames %>% head()
 BabyNames %>% sample_n(size = 20)
 ```
@@ -119,6 +119,7 @@ BabyNames <-
 
 
 ```{r}
+# data(BabyNames, package = "DataComputing")
 BabyNames %>%
   filter(grepl("kk", name)) %>%
   summarise(total = sum(count))
@@ -128,7 +129,7 @@ BabyNames %>%
 
 ##### any pair of letters followed by a pair of the same letters
 ```{r}
-data(BabyNames)
+# data(BabyNames)
 BabyNames %>%
   filter(grepl("(aa|bb|cc|dd|ee|ff|gg|hh|ii|jj|kk|ll|mm|nn|oo|pp|qq|rr|ss|tt|uu|vv|ww|xx|yy|zz){2,}", name)) %>% head
 ```
@@ -157,7 +158,7 @@ BabyNames %>%
 
 ```{r}
 BabyNames %>%
-  filter(grepl("[aeiouy]{3}$", name)) %>% 
+  filter(grepl("[aeiouy]{4}$", name)) %>% 
   summarise(total = n())
 ```
 
@@ -165,16 +166,6 @@ BabyNames %>%
 
 * $ = in the end
 * | = or
-
-
-
-```{r}
-BabyNames %>%
-  filter(grepl("[aeiouy]{3}*$", name)) %>% 
-  summarise(total = n())
-```
-
-
 
 
 ```{r}
@@ -185,18 +176,54 @@ str_view_all(BabyNames$name, "[LD].*") # anything starting with L or D
 
 
 
-
-
-
-
-
-
 # To KNOW:
 
 ^, $, 
 
 
 
+### FROM THE BOOK
+#### Examples of Graphs
+
+```{r warning = FALSE}
+CPS85 %>%
+ggplot(aes(x=wage)) +
+geom_density(aes(fill=sex,color=sex), alpha=0.5) +
+facet_grid( . ~ married) +
+ggtitle("(A)") + xlim(0,30)
+```
+
+```{r warning = FALSE}
+CPS85 %>%
+ggplot(aes(x=age, y=wage)) +
+geom_smooth(aes(color=sex)) +
+ggtitle("(B)") +
+facet_grid( married ~ .) + ylim(0,NA)
+```
+
+```{r warning = FALSE}
+CPS85 %>%
+ggplot(aes(x=age, y=wage)) +
+ggtitle("(C)") +
+geom_smooth(aes(color=sex)) +
+facet_wrap( ~ sector) + ylim(0,25)
+```
+
+```{r warning = FALSE}
+mosaicData::CPS85 %>%
+ggplot(aes(x = educ, y = wage,
+color = sex)) +
+geom_point() +
+stat_smooth(method="lm") +
+ylim(0,15)
+```
+
+```{r warning = FALSE}
+mosaicData::Galton %>%
+ggplot(aes(x = height, y = mother)) +
+geom_density2d() +
+facet_grid( ~ sex)
+```
 
 
 

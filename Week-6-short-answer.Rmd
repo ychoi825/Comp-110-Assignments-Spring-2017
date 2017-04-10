@@ -7,6 +7,8 @@ Compiled on `r date()`.
 
 ```{r include = FALSE}
 library(DataComputing)
+library(tidyr)
+library(ggplot2)
 ```
 <!-- put your content after this line -->
 
@@ -28,20 +30,15 @@ BabyNames_ranks <- BabyNames %>%
 BabyNames_ranks
 ```
 
-
+##### For Myself: Steps
 ```{r}
-BabyNames_ranks <- BabyNames %>%
-  filter(sex==F) %>%
-  summarise(nNames = sum(count))
-
-BabyNames_ranks <- BabyNames_ranks %>%
-  mutate(rank = rank(desc(nNames))) %>%
-  filter(rank <= 5) %>% arrange(desc(rank))
-
-
+# PopularCounts <-
+#   BabyNames %>%
+#   group_by(year, name) %>% 
+#   summarise(total = sum(count)) %>%
+#   mutate(ranking = ifelse(rank(desc(total)) <= 100, "Top_100", "Below"))
+# PopularCounts
 ```
-
-
 
 
 
@@ -49,9 +46,45 @@ BabyNames_ranks <- BabyNames_ranks %>%
 
 ##### Problem 12.2
 
+```{r}
+PopularCounts <-
+  BabyNames %>%
+  group_by(year, name) %>%
+  summarise(total = sum(count)) %>%
+  mutate(ranking = ifelse(rank(desc(total)) <= 100, "Top_100", "Below")) %>%
+  group_by(year, ranking) %>%
+  summarise(total = sum(total))
+
+##### For Myself: Steps
+# GlyphReady <-
+#   PopularCounts %>%
+#   tidyr::spread(ranking, total)
+# GlyphReady
+
+GlyphReady <-
+  PopularCounts %>%
+  spread(ranking, total) %>%
+  mutate(frac_in_top_100 = Top_100 / (Top_100 + Below))
+
+GlyphReady %>%
+  ggplot(aes(x=year, y=frac_in_top_100)) +
+  geom_line() +
+  ylim(0, NA)
+```
+
 &nbsp;    
 
 ##### Problem 12.3
+
+a. summary
+b. neither a summary nor a transformation. It is a pair of values rather than a single value as required for a summary function.
+c. summary
+d. transf
+e. transf
+f. summary
+g. transf
+h. summary. an entire set of dates is being
+turned into a single number.
 
 
 &nbsp;    
@@ -61,18 +94,31 @@ BabyNames_ranks <- BabyNames_ranks %>%
 
 ##### Problem 13.1
 
+1. There are 7 distinct vertices: China, France, Germany, Italy, UK, USA, USSR
+2. There is one row for each edge, so 9 edges.
+
+
 &nbsp;    
 
 ##### Problem 13.2
+
+1. A,B,C,D
+2. table 2
+3. bc not paired
+4. no three pairs (only 2)
 
 &nbsp;    
 
 ##### Problem 13.3
 
+NA
+
 &nbsp;    
 
 ##### Problem 13.4
 
+1. exports
+2. pop
 
 &nbsp;    
 &nbsp;    
@@ -81,16 +127,45 @@ BabyNames_ranks <- BabyNames_ranks %>%
 
 ##### Problem 14.1
 
+```{r warning = FALSE}
+mosaicData::CPS85 %>%
+ggplot(aes(x = sex, y = wage)) +
+geom_boxplot(aes(fill=sex))
+
+# data(CPS85, package = "mosaicData")
+# names(CPS85)
+# ggplot(CPS85, aes(x = sex, y = wage)) +
+#   geom_boxplot(aes(color = sex)) 
+```
+
+
 &nbsp;    
 
 ##### Problem 14.3
+
+For women, a litle less than 1.60 meters. For men, about 1.75 meters.
 
 &nbsp;    
 
 ##### Problem 14.7
 
+```{r warning = FALSE}
+mosaicData::CPS85 %>%
+  ggplot(aes(x = educ, y = wage, color = sex)) +
+  geom_point() +
+  stat_smooth(method="lm") +
+  ylim(0,15)
+```
+
+
 &nbsp;    
 
 ##### Problem 14.10
 
+```{r warning = FALSE}
+mosaicData::Galton %>%
+  ggplot(aes(x = height)) +
+  geom_density(aes(fill = sex, color = sex), alpha = 0.5) +
+  ggtitle("Height based on Gender") 
+```
 

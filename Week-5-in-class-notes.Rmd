@@ -5,8 +5,6 @@ date: "March 15, 2017"
 output: html_document
 ---
 
-!!! doesn't knit
-
 <!-- leave this material as is -->
 Compiled on `r date()`.
 

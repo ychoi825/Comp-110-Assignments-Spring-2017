@@ -1,6 +1,6 @@
 # Week 8 Short Answer Questions
 
-## Your name should appear here!
+## Yunjae Choi
 
 <!-- leave this material as is -->
 Compiled on `r date()`.
@@ -10,4 +10,26 @@ library(DataComputing)
 ```
 <!-- put your content after this line -->
 
-Here is my content!
+&nbsp;    
+&nbsp; 
+
+### Chapter 17
+    
+##### Problem 17.2
+```{r}
+Houses <- read.csv("http://tiny.cc/dcf/houses-for-sale.csv")
+names(Houses)
+```
+
+!!! book problem 
+
+1. Price = dependent var. 
+living_area, bathrooms, bedrooms and fireplaces = independent vars.
+2. No. Those are the houses to the left in node 3. For those houses, the bathrooms variable does not enter into the model.
+3. Of those houses (in node 5), those with 1.5 or fewer bathrooms have a typical price of 151,000 dollars while those with 2 or more bathrooms have a typical price of 180,000 dollars.
+4. The fireplaces variable enters into the model only for houses larger than 2816 square feet. For those houses,
+having more than 1 fireplace is associated with a much larger price: $502,000 compared to $385,000.
+
+Keep in mind that the model shows associations between variables. This is not at all the same thing as causal relationships. For example, in question (4), it might be that very fancy houses have much higher prices and they
+tend to have more than one fireplace. Perhaps it’s the overall fanciness rather than just the existence of a second
+fireplace that influences the price.

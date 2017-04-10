@@ -1,13 +1,133 @@
-# Week 7 Short Answer Questions
+# **Week 7 Short Answer Questions**
 
-## Your name should appear here!
+## Yunjae Choi
 
 <!-- leave this material as is -->
 Compiled on `r date()`.
 
 ```{r include = FALSE}
 library(DataComputing)
+library(xml2)
+library(bitops)
+library(rvest)
+library(RCurl)
 ```
 <!-- put your content after this line -->
 
-Here is my content!
+
+&nbsp;    
+&nbsp; 
+
+### Chapter 15
+    
+##### Problem 15.1
+
+• "April 30, 1777" — mdy()
+• "06-23-1912" — mdy()
+• "3 March 1847" — dmy()
+• "11:00 am on Nov. 11th, 1918 at 11:00 am" —
+mdy_hm()
+• "July 20, 1969" — mdy()
+
+```{r}
+lubridate::ymd("1941-09-01") -
+lubridate::mdy("July 28th, 1914")
+lubridate::ymd("1941-09-01")
+```
+
+
+&nbsp; 
+
+##### Problem 15.2
+
+a. "42,659.30" - tidyr::extract_numeric()
+b. "17%" - tidyr::extract_numeric()
+c. "Nineteen" - as_numeric()
+d. "£100" - tidyr::extract_numeric()
+e. "9.8 m/seconds-square" - as_numeric()
+f. "9.8 m/sˆ2" - as_numeric()
+g. "6.62606957 × 10ˆ-34 m2 kg / s" - as_numeric()
+h. "6.62606957e-34" - as_numeric()
+i. "42.659,30" (A European style)  - tidyr::extract_numeric()
+
+
+&nbsp; 
+
+
+### Chapter 16
+
+
+##### Problem 16.1
+
+1) Boys’ names ending in a vowel.
+
+```{r}
+BabyNames %>%
+  # Filter to keep only the boys.
+  filter(sex == "M") %>%
+  # Add up across all years for each name
+  group_by(name) %>%
+  summarise(total = sum(count)) %>%
+  # Filter to find names ending in a vowel
+  # The $ is the end-of-string marker
+  filter(grepl("[aeiou]$", name)) %>%
+  # Grab the top 10.
+  arrange(desc(total)) %>%
+  head(10)
+```
+
+
+2. Names ending with "joe" or "jo"
+
+```{r}
+BabyNames %>%
+  # Add up across all years for each name
+  group_by(name) %>%
+  summarise(total = sum(count)) %>%
+  # Filter to find names ending in [jo|joe]
+  # The $ is the end-of-string marker
+  filter(grepl(".*(jo$|joe$)", name)) %>%
+  # Grab the top 10.
+  arrange(desc(total)) #%>%
+  head(10)
+```
+
+
+
+&nbsp; 
+
+##### Problem 16.2
+
+Here is a character string with a regular expression:
+"([2-9][0-9]{2})[- .]([0-9]{3})[- .]([0-9]{4})"
+
+It's a structure of a US phone number. It starts with a number between 2 and 9 followed by two numbers in the set {0, ... , 9}. It then links to three numbers from the same number set {0, ... , 9}, has a link again, and ends with four numbers in the set {0, ... , 9}.
+
+
+
+&nbsp; 
+
+##### Problem 16.3
+
+1. Each matched string will be two letters, e.g. AL, AK, AS.
+2. For a pattern like A[LKSZRAP], there are seven strings
+that match. For an pattern like D[EC], there are two
+strings that match: DE and DC. For a pattern like RI,
+there is only one string that matches. Altogether, 61
+patterns.
+3. These are abbreviations for the US states and territories.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
